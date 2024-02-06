@@ -2,6 +2,7 @@ Describe 'ConvertTo-Currency' {
 
     BeforeAll {
         . $PSScriptRoot/../CurrencyConverter/Public/ConvertTo-Currency.ps1
+        . $PSScriptRoot/../CurrencyConverter/Private/ConvertFrom-UnixTime.ps1
 
         Mock Invoke-RestMethod {
             [pscustomobject]@{

@@ -2,6 +2,7 @@ Describe 'Format-Currency' {
 
     BeforeAll {
         . $PSScriptRoot/../CurrencyConverter/Public/Format-Currency.ps1
+        . $PSScriptRoot/../CurrencyConverter/Private/ConvertFrom-UnixTime.ps1
     }
 
     Context 'When given a valid currency and value' {
