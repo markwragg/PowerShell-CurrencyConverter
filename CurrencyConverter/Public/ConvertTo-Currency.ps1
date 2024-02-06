@@ -58,7 +58,7 @@ function ConvertTo-Currency {
                 $ExchangeRates = Get-Content $SourceCurrencyFile | ConvertFrom-Json
             }
 
-            if (-not $CachedCurrency -or ((Get-Date) -gt (Get-Date -UnixTimeSeconds $ExchangeRates.time_next_update_unix))) {
+            if (-not $CachedCurrency -or ((Get-Date) -gt ($ExchangeRates.time_next_update_unix | ConvertFrom-UnixTime))) {
                 $ExchangeRates = Invoke-RestMethod "https://open.er-api.com/v6/latest/${SourceCurrency}"
                 $ExchangeRates | ConvertTo-Json | Out-File "$PSScriptRoot\${SourceCurrency}.json" -Force
             }

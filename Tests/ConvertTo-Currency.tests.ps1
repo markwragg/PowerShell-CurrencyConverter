@@ -69,8 +69,8 @@ Describe 'ConvertTo-Currency' {
             $result | Should -Be 126.655200
 
             Should -Invoke Get-Content -Exactly 1
-            Should -Not -Invoke Invoke-RestMethod -Exactly 1
-            Should -Not -Invoke Out-File -Exactly 1
+            Should -Not -Invoke Invoke-RestMethod
+            Should -Not -Invoke Out-File
         }
 
         It 'Convert from GBP to USD using API' {
@@ -80,7 +80,7 @@ Describe 'ConvertTo-Currency' {
             $result = 100 | ConvertTo-Currency -SourceCurrency GBP -DestinationCurrency USD
             $result | Should -Be 126.655200
 
-            Should -Not -Invoke Get-Content -Exactly 1
+            Should -Not -Invoke Get-Content
             Should -Invoke Invoke-RestMethod -Exactly 1
             Should -Invoke Out-File -Exactly 1
         }
