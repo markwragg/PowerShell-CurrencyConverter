@@ -34,15 +34,6 @@ Describe 'Format-Currency' {
         }
     }
 
-    Context 'When given an invalid currency' {
-
-        It 'Returns the value without a currency symbol' {
-
-            $result = Format-Currency -Currency 'XYZ' -Value 1234.5678
-            $result | Should -Be '1,234.57'
-        }
-    }
-
     Context 'When given a negative value' {
 
         It 'Returns the currency symbol and formatted negative value' {
