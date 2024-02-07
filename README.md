@@ -4,7 +4,7 @@
 
 A PowerShell wrapper for the open currency conversion API provided by [ExchangeRate-API](https://www.exchangerate-api.com/).
 
-> [!NOTE]
+> [!IMPORTANT]
 > No registration / API key is required to use this API, but the currency rates are refreshed once a day and rate limiting may occur if you make too many requests.
 > The module caches the results for a currency to disk, so that the API only needs to be queried once a day for a specified currency.
 
@@ -24,7 +24,7 @@ To perform a simple currency conversion, execute:
 Convert-Currency -Value 100 -From USD -To GBP
 ```
 
-> {!INFORMATION}
+> [!TIP]
 > See here for a list of supported currencies: https://www.exchangerate-api.com/docs/supported-currencies
 
 The value can alternatively be provided via the pipeline:
