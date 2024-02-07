@@ -6,8 +6,7 @@ Converts a decimal value between specified currencies
 ## SYNTAX
 
 ```
-Convert-Currency [-From] <String> [-To] <String> [-Value] <Decimal>
- [<CommonParameters>]
+Convert-Currency [-Value] <Decimal> [-From] <String> [-To] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -18,7 +17,7 @@ Caches the conversion rates for the specified currency (valid for 24 hours).
 
 ### EXAMPLE 1
 ```
-100 | ConvertTo-Currency -SourceCurrency USD -DestinationCurrency GBP
+100 | Convert-Currency -From USD -To GBP
 ```
 
 Description
@@ -27,7 +26,7 @@ Converts the value 100 (provided via the pipeline) from USD (US Dollar) to GBP (
 
 ### EXAMPLE 2
 ```
-ConvertTo-Currency -Value 100 -SourceCurrency AUD -DestinationCurrency EUR
+Convert-Currency -Value 100 -From AUD -To EUR
 ```
 
 Description
@@ -35,36 +34,6 @@ Description
 Converts the value 100 from USD (US Dollar) to AUD (Australian Dollar), example result: 154.211800
 
 ## PARAMETERS
-
-### -To
-{{Fill To Description}}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -From
-{{Fill From Description}}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### -Value
 The amount you want to convert between currencies.
@@ -81,7 +50,7 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -SourceCurrency
+### -From
 The currency to convert from.
 
 ```yaml
@@ -96,7 +65,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -DestinationCurrency
+### -To
 The currency to convert to.
 
 ```yaml
