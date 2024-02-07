@@ -1,4 +1,4 @@
-# ConvertTo-Currency
+# Convert-Currency
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
@@ -6,7 +6,7 @@
 ## SYNTAX
 
 ```
-ConvertTo-Currency [-SourceCurrency] <String> [-DestinationCurrency] <String> [-Value] <Decimal>
+Convert-Currency [-From] <String> [-To] <String> [-Value] <Decimal>
  [<CommonParameters>]
 ```
 
@@ -24,8 +24,8 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
-### -DestinationCurrency
-{{Fill DestinationCurrency Description}}
+### -To
+{{Fill To Description}}
 
 ```yaml
 Type: String
@@ -39,8 +39,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SourceCurrency
-{{Fill SourceCurrency Description}}
+### -From
+{{Fill From Description}}
 
 ```yaml
 Type: String

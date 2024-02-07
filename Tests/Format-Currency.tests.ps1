@@ -2,6 +2,7 @@ Describe 'Format-Currency' {
 
     BeforeAll {
         . $PSScriptRoot/../CurrencyConverter/Public/Format-Currency.ps1
+        . $PSScriptRoot/../CurrencyConverter/Public/Convert-Currency.ps1
         . $PSScriptRoot/../CurrencyConverter/Private/ConvertFrom-UnixTime.ps1
     }
 
@@ -16,6 +17,12 @@ Describe 'Format-Currency' {
         It 'Returns the currency symbol and formatted value' {
 
             $result = Format-Currency -Currency 'USD' -Value 1234
+            $result | Should -Be '$1,234.00'
+        }
+
+        It 'Returns the currency symbol and formatted value after conversion' {
+
+            $result = Format-Currency -Currency 'USD' -Value 1234 -ConvertToCurrency 'USD'
             $result | Should -Be '$1,234.00'
         }
     }

@@ -85,7 +85,7 @@
         }
 
         if ($ConvertToCurrency) {
-            $ConvertedValue = $Value | ConvertTo-Currency -SourceCurrency $Currency -DestinationCurrency $ConvertToCurrency
+            $ConvertedValue = $Value | Convert-Currency -From $Currency -To $ConvertToCurrency
             "$($CurrencySymbols[$ConvertToCurrency]){0:n2}" -f $ConvertedValue
         }
         else {

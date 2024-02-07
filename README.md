@@ -4,7 +4,7 @@
 
 A PowerShell module for cmdlets related to currency conversion.
 
-> [!TIP]
+> [!NOTE]
 > :astonished: No API key required!
 
 ## Installation

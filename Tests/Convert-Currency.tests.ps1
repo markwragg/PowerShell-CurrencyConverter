@@ -1,7 +1,7 @@
-Describe 'ConvertTo-Currency' {
+Describe 'Convert-Currency' {
 
     BeforeAll {
-        . $PSScriptRoot/../CurrencyConverter/Public/ConvertTo-Currency.ps1
+        . $PSScriptRoot/../CurrencyConverter/Public/Convert-Currency.ps1
         . $PSScriptRoot/../CurrencyConverter/Private/ConvertFrom-UnixTime.ps1
 
         Mock Invoke-RestMethod {
@@ -66,7 +66,7 @@ Describe 'ConvertTo-Currency' {
 
             Mock Test-Path { $true }
 
-            $result = 100 | ConvertTo-Currency -SourceCurrency GBP -DestinationCurrency USD
+            $result = 100 | Convert-Currency -From GBP -To USD
             $result | Should -Be 126.655200
 
             Should -Invoke Get-Content -Exactly 1
@@ -78,7 +78,7 @@ Describe 'ConvertTo-Currency' {
 
             Mock Test-Path { $false }
 
-            $result = 100 | ConvertTo-Currency -SourceCurrency GBP -DestinationCurrency USD
+            $result = 100 | Convert-Currency -From GBP -To USD
             $result | Should -Be 126.655200
 
             Should -Not -Invoke Get-Content
@@ -111,7 +111,7 @@ Describe 'ConvertTo-Currency' {
 '@
             }
 
-            $result = 100 | ConvertTo-Currency -SourceCurrency GBP -DestinationCurrency USD
+            $result = 100 | Convert-Currency -From GBP -To USD
             $result | Should -Be 126.655200
 
             Should -Not -Invoke Get-Content
@@ -148,12 +148,23 @@ Describe 'ConvertTo-Currency' {
             Mock Invoke-RestMethod {}
             Mock Write-Error
 
-            $result = 100 | ConvertTo-Currency -SourceCurrency GBP -DestinationCurrency USD
-
+            $result = 100 | Convert-Currency -From GBP -To USD
+            
             Should -Invoke Get-Content -Exactly 1
             Should -Invoke Invoke-RestMethod -Exactly 1
             Should -Not -Invoke Out-File -Exactly 1
             Should -Invoke Write-Error
+        }
+
+        It 'Should perform no conversion if the source and destination currencies are the same' {
+
+            $result = Convert-Currency -Value 100 -From GBP -To GBP
+
+            $result | Should -Be 100
+
+            Should -Not -Invoke Get-Content
+            Should -Not -Invoke Invoke-RestMethod
+            Should -Not -Invoke Out-file
         }
     }
 }
