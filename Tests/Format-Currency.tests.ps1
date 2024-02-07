@@ -22,8 +22,20 @@ Describe 'Format-Currency' {
 
         It 'Returns the currency symbol and formatted value after conversion' {
 
-            $result = Format-Currency -Currency 'USD' -Value 1234 -ConvertToCurrency 'USD'
+            $result = Format-Currency -Currency 'USD' -Value 1234 -ConvertTo 'USD'
             $result | Should -Be '$1,234.00'
+        }
+
+        It 'Returns the formatted value with the symbol at the end' {
+
+            $result = Format-Currency -Currency 'USD' -Value 1234 -SymbolAtEnd
+            $result | Should -Be '1,234.00$'
+        }
+
+        It 'Returns the currency symbol and formatted value to the specified number of decimal places' {
+
+            $result = Format-Currency -Currency 'USD' -Value 1234.5678 -Decimals 3
+            $result | Should -Be '$1,234.568'
         }
     }
 

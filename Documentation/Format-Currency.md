@@ -6,7 +6,7 @@ Formats a value with the currency symbol for a specified country.
 ## SYNTAX
 
 ```
-Format-Currency [-Value] <Decimal> [-Currency] <String> [[-ConvertToCurrency] <String>] [<CommonParameters>]
+Format-Currency [-Value] <Decimal> [-Currency] <String> [[-ConvertTo] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,7 +26,7 @@ Formats the value (provided via the pipeline) as USD: $100.00.
 
 ### EXAMPLE 2
 ```
-100 | Format-Currency -Currency USD -ConvertToCurrency GBP
+100 | Format-Currency -Currency USD -ConvertTo GBP
 ```
 
 Description
@@ -74,7 +74,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ConvertToCurrency
+### -ConvertTo
 Perform a currency conversion and then format as that currency.
 
 ```yaml
