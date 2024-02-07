@@ -6,12 +6,13 @@ Formats a value with the currency symbol for a specified country.
 ## SYNTAX
 
 ```
-Format-Currency [-Value] <Decimal> [-Currency] <String> [[-ConvertTo] <String>] [<CommonParameters>]
+Format-Currency [-Value] <Decimal> [-Currency] <String> [[-Decimals] <Int32>] [[-ConvertTo] <String>]
+ [-SymbolAtEnd] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 Outputs a value with the specified currency symbol.
-Can also be used to perform a currency conversion and then format as the destination currency.
+Can also be used to perform a currency conversion and then format as the converted currency.
 
 ## EXAMPLES
 
@@ -42,6 +43,24 @@ Description
 -----------
 Formats the value as USD: $100.00.
 
+### EXAMPLE 4
+```
+Format-Currency -Value 100.2345 -Currency USD -Decimals 3
+```
+
+Description
+-----------
+Formats the value as USD: $100.235.
+
+### EXAMPLE 5
+```
+Format-Currency -Value 100 -Currency USD -SymbolAtEnd
+```
+
+Description
+-----------
+Formats the value as USD: 100.00$.
+
 ## PARAMETERS
 
 ### -Value
@@ -60,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Currency
-The currency to format the value as.
+The currency represented by value.
 
 ```yaml
 Type: String
@@ -70,6 +89,22 @@ Aliases:
 Required: True
 Position: 2
 Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Decimals
+The number of decimal places to round the value to.
+Default: 2
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
+Default value: 2
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -83,8 +118,23 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: 4
 Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -SymbolAtEnd
+Place the currency symbol after the value.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
