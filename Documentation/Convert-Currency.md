@@ -1,7 +1,7 @@
 # Convert-Currency
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Converts a decimal value between specified currencies
 
 ## SYNTAX
 
@@ -11,16 +11,28 @@ Convert-Currency [-From] <String> [-To] <String> [-Value] <Decimal>
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Uses the Open Exchange Rate API (https://www.exchangerate-api.com/docs/free) to perform currency conversions.
+Caches the conversion rates for the specified currency (valid for 24 hours).
 
 ## EXAMPLES
 
-### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+### EXAMPLE 1
+```
+100 | ConvertTo-Currency -SourceCurrency USD -DestinationCurrency GBP
 ```
 
-{{ Add example description here }}
+Description
+-----------
+Converts the value 100 (provided via the pipeline) from USD (US Dollar) to GBP (British Pound), example result: 79.674700
+
+### EXAMPLE 2
+```
+ConvertTo-Currency -Value 100 -SourceCurrency AUD -DestinationCurrency EUR
+```
+
+Description
+-----------
+Converts the value 100 from USD (US Dollar) to AUD (Australian Dollar), example result: 154.211800
 
 ## PARAMETERS
 
@@ -55,7 +67,7 @@ Accept wildcard characters: False
 ```
 
 ### -Value
-{{Fill Value Description}}
+The amount you want to convert between currencies.
 
 ```yaml
 Type: Decimal
@@ -63,9 +75,39 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
+Position: 1
+Default value: 0
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -SourceCurrency
+The currency to convert from.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
 Position: 2
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DestinationCurrency
+The currency to convert to.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 3
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -75,11 +117,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### System.Decimal
-
 ## OUTPUTS
 
-### System.Object
 ## NOTES
 
 ## RELATED LINKS
