@@ -43,7 +43,8 @@ If you would like to return the result as a formatted string including the curre
 
 ```powershell
 100 | Format-Currency -Currency USD
-
+```
+```plaintext
 $100.00
 ```
 
@@ -51,7 +52,8 @@ This cmdlet rounds to two decimal places by default. To specify a different numb
 
 ```powershell
 Format-Currency -Value 123.4567890 -Currency GBP -Decimals 4
-
+```
+```plaintext
 £123.4568
 ```
 
@@ -59,7 +61,8 @@ You can also perform a currency conversion at the same time as performing the fo
 
 ```powershell
 Format-Currency -Value 100 -Currency GBP -ConvertTo USD
-
+```
+```plaintext
 $125.85
 ```
 
@@ -67,7 +70,8 @@ If you would prefer the currency symbol to appear after the value, use the `-Sym
 
 ```powershell
 Format-Currency -Value 100 -Currency GBP -SymbolAtEnd
-
+```
+```plaintext
 125.85£
 ```
 
@@ -75,7 +79,8 @@ You can also pipe the result of `Convert-Currency` to `Format-Currency`:
 
 ```powershell
 Convert-Currency -Value 100 -From USD -To EUR | Format-Currency -Currency EUR
-
+```
+```plaintext
 €93.04
 ```
 
