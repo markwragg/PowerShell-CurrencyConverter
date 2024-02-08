@@ -59,7 +59,6 @@ Describe 'Get-ExchangeRate' {
 
         Mock Out-File
     }
-
    
     It 'Gets exchange rates for GBP' {
 
@@ -103,6 +102,18 @@ Describe 'Get-ExchangeRate' {
 
         $result = Get-ExchangeRate -From GBP -To USD
         $result | Should -Be 1.266552
+
+        Should -Not -Invoke Get-Content
+        Should -Invoke Invoke-RestMethod -Exactly 1
+        Should -Invoke Out-File -Exactly 1
+    }
+
+    It 'Gets all exchange rates for GBP using API' {
+
+        Mock Test-Path { $false }
+
+        $result = Get-ExchangeRate -Currency GBP -Rates
+        $result.Count | Should -Be 162
 
         Should -Not -Invoke Get-Content
         Should -Invoke Invoke-RestMethod -Exactly 1

@@ -1,5 +1,10 @@
 # Change Log
 
+## !Deploy
+
+* Implemented `Get-Currency` to return details of the currencies supported by this tool.
+* Added a `-Rates` switch to `Get-ExchangeRate` to return all rates for a specified currency.
+
 ## [0.0.3] - 2024-02-08
 
 * Implemented `Get-ExchangeRate` to return the full result from the API as a PowerShell object, or a specified exchange rate.

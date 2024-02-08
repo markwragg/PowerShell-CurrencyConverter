@@ -24,6 +24,7 @@ Cmdlet               | Description
 -------------------- | ---------------------------------------------------------------------------------------------------------
 Convert-Currency     | Converts a decimal value between two specified currencies.
 Format-Currency      | Formats a value as a string with the currency symbol for a specified country.
+Get-Currency         | Returns the list of supported currency codes along with their currency name and country code.
 Get-ExchangeRate     | Returns all exchange rates for a specified currency, or a specified exchange rate between two currencies.
 
 To perform a simple currency conversion, execute:
@@ -33,7 +34,7 @@ Convert-Currency -Value 100 -From USD -To GBP
 ```
 
 > [!TIP]
-> See here for a list of supported currencies: https://www.exchangerate-api.com/docs/supported-currencies
+> See here for a list of supported currencies: https://www.exchangerate-api.com/docs/supported-currencies. Alternatively you can use the `Get-Currency` cmdlet.
 
 The value can alternatively be provided via the pipeline:
 
@@ -92,6 +93,52 @@ Convert-Currency -Value 100 -From USD -To EUR | Format-Currency -Currency EUR
 €93.04
 ```
 
+To see a full list of currency codes supported by this tool, along with their name and country, execute:
+
+```powershell
+Get-Currency
+```
+
+You can also specify a specific code (this requires an exact match):
+
+```powershell
+Get-Currency -Currency GBP
+```
+
+Or you can filter by currency or country name (this will return partial matches):
+
+```powershell
+Get-Currency -Name 'Pound'
+```
+```plaintext
+Code Name                   Country
+---- ----                   -------
+EGP  Egyptian Pound         Egypt
+FKP  Falkland Islands Pound Falkland Islands
+GBP  Pound Sterling         United Kingdom
+GGP  Guernsey Pound         Guernsey
+GIP  Gibraltar Pound        Gibraltar
+IMP  Manx Pound             Isle of Man
+JEP  Jersey Pound           Jersey
+LBP  Lebanese Pound         Lebanon
+SDG  Sudanese Pound         Sudan
+SHP  Saint Helena Pound     Saint Helena
+SSP  South Sudanese Pound   South Sudan
+SYP  Syrian Pound           Syria
+```
+
+```powershell
+Get-Currency -Country 'United'
+```
+```plaintext
+Code Name                 Country
+---- ----                 -------
+AED  UAE Dirham           United Arab Emirates
+GBP  Pound Sterling       United Kingdom
+USD  United States Dollar United States
+```
+
+
 To return the full result from the API as a PowerShell object, use the `Get-ExchangeRate` cmdlet:
 
 ```powershell
@@ -133,6 +180,29 @@ rates                 : @{USD=1; AED=3.6725; AFN=73.755496; ALL=96.818553; AMD=4
                         UZS=12479.514661; VES=36.2375; VND=24413.241561; VUV=120.508933; WST=2.745778; XAF=609.029912; XCD=2.7;
                         XDR=0.754059; XOF=609.029912; XPF=110.795003; YER=250.331823; ZAR=18.897825; ZMW=27.029301;
                         ZWL=10811.587531}
+```
+
+If you want to return just the exchange rates, you can execute `Get-ExchangeRate` and specify `-Rates`:
+
+```powershell
+Get-ExchangeRate -Currency GBP -Rates
+```
+```plaintext
+GBP : 1
+AED : 4.636888
+AFN : 92.99538
+ALL : 122.070196
+AMD : 510.608906
+ANG : 2.260049
+AOA : 1067.044213
+ARS : 1048.144979
+AUD : 1.935836
+AWG : 2.260049
+AZN : 2.145246
+BAM : 2.292681
+BBD : 2.525194
+BDT : 138.549806
+...
 ```
 
 If you just want to return a specific exchange rate, you can execute `Get-ExchangeRate` and specify `-From` and `-To`:

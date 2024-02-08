@@ -1,4 +1,4 @@
-Currency Code,Currency Name,Country
+Code,Name,Country
 AED,UAE Dirham,United Arab Emirates
 AFN,Afghan Afghani,Afghanistan
 ALL,Albanian Lek,Albania
@@ -44,7 +44,7 @@ ETB,Ethiopian Birr,Ethiopia
 EUR,Euro,European Union
 FJD,Fiji Dollar,Fiji
 FKP,Falkland Islands Pound,Falkland Islands
-FOK,Faroese KrÛna,Faroe Islands
+FOK,Faroese Kr√≥na,Faroe Islands
 GBP,Pound Sterling,United Kingdom
 GEL,Georgian Lari,Georgia
 GGP,Guernsey Pound,Guernsey
@@ -65,7 +65,7 @@ IMP,Manx Pound,Isle of Man
 INR,Indian Rupee,India
 IQD,Iraqi Dinar,Iraq
 IRR,Iranian Rial,Iran
-ISK,Icelandic KrÛna,Iceland
+ISK,Icelandic Kr√≥na,Iceland
 JEP,Jersey Pound,Jersey
 JMD,Jamaican Dollar,Jamaica
 JOD,Jordanian Dinar,Jordan
@@ -90,7 +90,7 @@ MDL,Moldovan Leu,Moldova
 MGA,Malagasy Ariary,Madagascar
 MKD,Macedonian Denar,North Macedonia
 MMK,Burmese Kyat,Myanmar
-MNT,Mongolian Tˆgrˆg,Mongolia
+MNT,Mongolian T√∂gr√∂g,Mongolia
 MOP,Macanese Pataca,Macau
 MRU,Mauritanian Ouguiya,Mauritania
 MUR,Mauritian Rupee,Mauritius
@@ -101,7 +101,7 @@ MYR,Malaysian Ringgit,Malaysia
 MZN,Mozambican Metical,Mozambique
 NAD,Namibian Dollar,Namibia
 NGN,Nigerian Naira,Nigeria
-NIO,Nicaraguan CÛrdoba,Nicaragua
+NIO,Nicaraguan C√≥rdoba,Nicaragua
 NOK,Norwegian Krone,Norway
 NPR,Nepalese Rupee,Nepal
 NZD,New Zealand Dollar,New Zealand
@@ -111,8 +111,8 @@ PEN,Peruvian Sol,Peru
 PGK,Papua New Guinean Kina,Papua New Guinea
 PHP,Philippine Peso,Philippines
 PKR,Pakistani Rupee,Pakistan
-PLN,Polish Z?oty,Poland
-PYG,Paraguayan GuaranÌ,Paraguay
+PLN,Polish Z≈Çoty,Poland
+PYG,Paraguayan Guaran√≠,Paraguay
 QAR,Qatari Riyal,Qatar
 RON,Romanian Leu,Romania
 RSD,Serbian Dinar,Serbia
@@ -129,14 +129,14 @@ SLE,Sierra Leonean Leone,Sierra Leone
 SOS,Somali Shilling,Somalia
 SRD,Surinamese Dollar,Suriname
 SSP,South Sudanese Pound,South Sudan
-STN,S„o TomÈ and PrÌncipe Dobra,S„o TomÈ and PrÌncipe
+STN,S√£o Tom√£ and Pr√≠ncipe Dobra,S√£o Tom√© and Pr√≠ncipe
 SYP,Syrian Pound,Syria
 SZL,Eswatini Lilangeni,Eswatini
 THB,Thai Baht,Thailand
 TJS,Tajikistani Somoni,Tajikistan
 TMT,Turkmenistan Manat,Turkmenistan
 TND,Tunisian Dinar,Tunisia
-TOP,Tongan Pa?anga,Tonga
+TOP,Tongan Pa ªanga,Tonga
 TRY,Turkish Lira,Turkey
 TTD,Trinidad and Tobago Dollar,Trinidad and Tobago
 TVD,Tuvaluan Dollar,Tuvalu
@@ -147,15 +147,15 @@ UGX,Ugandan Shilling,Uganda
 USD,United States Dollar,United States
 UYU,Uruguayan Peso,Uruguay
 UZS,Uzbekistani So'm,Uzbekistan
-VES,Venezuelan BolÌvar Soberano,Venezuela
-VND,Vietnamese ??ng,Vietnam
+VES,Venezuelan Bol√≠var Soberano,Venezuela
+VND,Vietnamese ƒë·ªìng,Vietnam
 VUV,Vanuatu Vatu,Vanuatu
-WST,Samoan T?l?,Samoa
+WST,Samoan TƒÅlƒÅ,Samoa
 XAF,Central African CFA Franc,CEMAC
 XCD,East Caribbean Dollar,Organisation of Eastern Caribbean States
 XDR,Special Drawing Rights,International Monetary Fund
 XOF,West African CFA franc,CFA
-XPF,CFP Franc,CollectivitÈs d'Outre-Mer
+XPF,CFP Franc,Collectivit√©s d'Outre-Mer
 YER,Yemeni Rial,Yemen
 ZAR,South African Rand,South Africa
 ZMW,Zambian Kwacha,Zambia
