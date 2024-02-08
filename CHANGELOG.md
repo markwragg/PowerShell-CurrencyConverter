@@ -1,6 +1,6 @@
 # Change Log
 
-## !Deploy
+## [0.0.3] - 2024-02-08
 
 * Implemented `Get-ExchangeRate` to return the full result from the API as a PowerShell object, or a specified exchange rate.
 
