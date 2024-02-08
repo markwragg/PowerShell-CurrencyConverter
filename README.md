@@ -35,6 +35,12 @@ To perform a simple currency conversion, execute:
 Convert-Currency -Value 100 -From USD -To GBP
 ```
 
+To use the registered API, provide your key via the `-APIKey` parameter:
+
+```powershell
+Convert-Currency -Value 100 -From USD -To GBP -ApiKey yourapikeystringhere
+```
+
 > [!TIP]
 > See here for a list of supported currencies: https://www.exchangerate-api.com/docs/supported-currencies. Alternatively you can use the `Get-Currency` cmdlet.
 
@@ -146,6 +152,15 @@ To return the full result from the API as a PowerShell object, use the `Get-Exch
 ```powershell
 Get-ExchangeRate -Currency USD
 ```
+To use the registered API, provide your key via the `-APIKey` parameter:
+
+```powershell
+Get-ExchangeRate -Currency GBP -ApiKey yourapikeystringhere
+```
+
+> [!NOTE]
+> When an API key is provided, the v6 API is invoked. This returns the rates as a property called 'conversion_rates'. The Open API returns the property as 'rates'.
+
 ```plaintext
 result                : success
 provider              : https://www.exchangerate-api.com
