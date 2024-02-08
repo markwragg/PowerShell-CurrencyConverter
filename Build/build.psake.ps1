@@ -279,6 +279,7 @@ Task 'Commit' -Depends 'Init' {
     git config --global user.name "AzureDevOps"
     git pull
     git checkout $env:BUILD_SOURCEBRANCHNAME
+    git add *.psd1
     git add Documentation/*.md
     git add README.md
     git add CHANGELOG.md
