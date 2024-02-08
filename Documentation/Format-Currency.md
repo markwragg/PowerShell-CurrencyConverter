@@ -1,7 +1,7 @@
 # Format-Currency
 
 ## SYNOPSIS
-Formats a value with the currency symbol for a specified country.
+Formats a value as a string with the currency symbol for a specified country.
 
 ## SYNTAX
 
