@@ -1,6 +1,6 @@
 # Change Log
 
-## !Deploy
+## [0.0.5] - 2024-02-08
 
 * Added position=0 for `-Value` of `Convert-Currency` so the value can be provided without naming the parameter.
 * Added Inputs and OutputType for cmdlet help.

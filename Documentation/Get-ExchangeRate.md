@@ -7,12 +7,12 @@ Returns all exchange rates for a specified currency, or a specified exchange rat
 
 ### ToRate (Default)
 ```
-Get-ExchangeRate -Currency <String> [-To <String>] [<CommonParameters>]
+Get-ExchangeRate [-Currency] <String> [-To <String>] [<CommonParameters>]
 ```
 
 ### Rates
 ```
-Get-ExchangeRate -Currency <String> [-Rates] [<CommonParameters>]
+Get-ExchangeRate [-Currency] <String> [-Rates] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -48,6 +48,15 @@ Description
 -----------
 Returns the exchange rate from US Dollar to British Pound, example result: 0.792011
 
+### EXAMPLE 4
+```
+'USD','GBP' | Get-ExchangeRate
+```
+
+Description
+-----------
+Returns the exchange rates for US Dollar and British Pound as PowerShell objects.
+
 ## PARAMETERS
 
 ### -Currency
@@ -60,9 +69,9 @@ Parameter Sets: (All)
 Aliases: From
 
 Required: True
-Position: Named
+Position: 1
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -77,7 +86,7 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -92,7 +101,7 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -102,8 +111,12 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### Currency codes can be provided via the pipeline.
 ## OUTPUTS
 
+### System.Management.Automation.PSObject
+### System.Management.Automation.PSObject
+### System.Double
 ## NOTES
 
 ## RELATED LINKS

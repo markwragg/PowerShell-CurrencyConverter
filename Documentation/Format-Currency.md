@@ -145,8 +145,10 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### A numerical value, can be provided via the pipeline.
 ## OUTPUTS
 
+### System.String
 ## NOTES
 
 ## RELATED LINKS

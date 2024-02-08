@@ -7,7 +7,7 @@ Returns the list of supported currency codes along with their currency name and 
 
 ### Code (Default)
 ```
-Get-Currency [-Currency <String>] [<CommonParameters>]
+Get-Currency [[-Currency] <String>] [<CommonParameters>]
 ```
 
 ### Name
@@ -45,6 +45,15 @@ Returns the code, name and country for GBP.
 
 ### EXAMPLE 3
 ```
+'GBP','USD' | Get-Currency
+```
+
+Description
+-----------
+Returns the code, name and country details for GBP and USD.
+
+### EXAMPLE 4
+```
 Get-Currency -Country 'United Kingdom'
 ```
 
@@ -52,7 +61,7 @@ Description
 -----------
 Returns the code, name and country for the United Kingdom.
 
-### EXAMPLE 4
+### EXAMPLE 5
 ```
 Get-Currency -Name 'Dollar'
 ```
@@ -73,9 +82,9 @@ Parameter Sets: Code
 Aliases: Code
 
 Required: False
-Position: Named
+Position: 1
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -115,8 +124,10 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### Currency codes can be provided via the pipeline.
 ## OUTPUTS
 
+### System.Management.Automation.PSObject
 ## NOTES
 
 ## RELATED LINKS

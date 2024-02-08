@@ -6,7 +6,7 @@ Converts a decimal value between specified currencies
 ## SYNTAX
 
 ```
-Convert-Currency [-Value] <Decimal> [-From] <String> [-To] <String> [<CommonParameters>]
+Convert-Currency [-Value] <Decimal> -From <String> -To <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -59,7 +59,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -74,7 +74,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 3
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -86,8 +86,10 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### A numerical value, can be provided via the pipeline.
 ## OUTPUTS
 
+### System.Decimal
 ## NOTES
 
 ## RELATED LINKS
