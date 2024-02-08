@@ -1,7 +1,7 @@
 # Get-ExchangeRate
 
 ## SYNOPSIS
-Returns the exchange rates for a specified currency
+Returns all exchange rates for a specified currency, or a specified exchange rate between two currencies.
 
 ## SYNTAX
 
