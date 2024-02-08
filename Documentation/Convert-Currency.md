@@ -6,7 +6,7 @@ Converts a decimal value between specified currencies
 ## SYNTAX
 
 ```
-Convert-Currency [-Value] <Decimal> -From <String> -To <String> [<CommonParameters>]
+Convert-Currency [-Value] <Decimal> -From <String> -To <String> [-APIKey <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -74,6 +74,21 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -APIKey
+Optional: To use the v6 API, provide your API key, as provided by https://www.exchangerate-api.com/
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

@@ -7,12 +7,12 @@ Returns all exchange rates for a specified currency, or a specified exchange rat
 
 ### ToRate (Default)
 ```
-Get-ExchangeRate [-Currency] <String> [-To <String>] [<CommonParameters>]
+Get-ExchangeRate [-Currency] <String> [-To <String>] [-APIKey <String>] [<CommonParameters>]
 ```
 
 ### Rates
 ```
-Get-ExchangeRate [-Currency] <String> [-Rates] [<CommonParameters>]
+Get-ExchangeRate [-Currency] <String> [-Rates] [-APIKey <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -102,6 +102,21 @@ Required: False
 Position: Named
 Default value: False
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -APIKey
+Optional: To use the v6 API, provide your API key, as provided by https://www.exchangerate-api.com/
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
