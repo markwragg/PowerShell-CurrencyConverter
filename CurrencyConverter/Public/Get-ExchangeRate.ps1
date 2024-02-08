@@ -1,7 +1,7 @@
 function Get-ExchangeRate {
     <#
     .SYNOPSIS
-        Returns the exchange rates for a specified currency
+        Returns all exchange rates for a specified currency, or a specified exchange rate between two currencies.
 
     .DESCRIPTION
         Uses the Open Exchange Rate API (https://www.exchangerate-api.com/docs/free) to retrieve currency rates.

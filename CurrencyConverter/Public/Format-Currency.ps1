@@ -1,7 +1,7 @@
 ﻿function Format-Currency {
     <#
     .SYNOPSIS
-        Formats a value with the currency symbol for a specified country.
+        Formats a value as a string with the currency symbol for a specified country.
 
     .DESCRIPTION
         Outputs a value with the specified currency symbol. Can also be used to perform a currency conversion and then format as the converted currency.

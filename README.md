@@ -18,6 +18,14 @@ Install-Module CurrencyConverter
 
 ## Usage
 
+This module provides the following cmdlets:
+
+Cmdlet               | Description
+-------------------- | ---------------------------------------------------------------------------------------------------------
+Convert-Currency     | Converts a decimal value between two specified currencies.
+Format-Currency      | Formats a value as a string with the currency symbol for a specified country.
+Get-ExchangeRate     | Returns all exchange rates for a specified currency, or a specified exchange rate between two currencies.
+
 To perform a simple currency conversion, execute:
 
 ```powershell
@@ -125,4 +133,13 @@ rates                 : @{USD=1; AED=3.6725; AFN=73.755496; ALL=96.818553; AMD=4
                         UZS=12479.514661; VES=36.2375; VND=24413.241561; VUV=120.508933; WST=2.745778; XAF=609.029912; XCD=2.7;
                         XDR=0.754059; XOF=609.029912; XPF=110.795003; YER=250.331823; ZAR=18.897825; ZMW=27.029301;
                         ZWL=10811.587531}
+```
+
+If you just want to return a specific exchange rate, you can execute `Get-ExchangeRate` and specify `-From` and `-To`:
+
+```powershell
+Get-ExchangeRate -From GBP -To USD
+```
+```plaintext
+1.262609
 ```
