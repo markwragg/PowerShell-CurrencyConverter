@@ -1,6 +1,6 @@
 # Change Log
 
-## !Deploy
+## [0.0.4] - 2024-02-08
 
 * Implemented `Get-Currency` to return details of the currencies supported by this tool.
 * Added a `-Rates` switch to `Get-ExchangeRate` to return all rates for a specified currency.

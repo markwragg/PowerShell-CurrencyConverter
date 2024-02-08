@@ -5,8 +5,14 @@ Returns all exchange rates for a specified currency, or a specified exchange rat
 
 ## SYNTAX
 
+### ToRate (Default)
 ```
-Get-ExchangeRate [-Currency] <String> [[-To] <String>] [<CommonParameters>]
+Get-ExchangeRate -Currency <String> [-To <String>] [<CommonParameters>]
+```
+
+### Rates
+```
+Get-ExchangeRate -Currency <String> [-Rates] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -25,6 +31,15 @@ Description
 Returns the exchange rates for US Dollar as a PowerShell object.
 
 ### EXAMPLE 2
+```
+Get-ExchangeRate -Currency USD -Rates
+```
+
+Description
+-----------
+Returns all exchange rates for US Dollar.
+
+### EXAMPLE 3
 ```
 Get-ExchangeRate -From USD -To GBP
 ```
@@ -45,7 +60,7 @@ Parameter Sets: (All)
 Aliases: From
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -56,12 +71,27 @@ The currency to return the exchange rate to (from the currency specified as -Cur
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: ToRate
 Aliases:
 
 Required: False
-Position: 2
+Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Rates
+Switch: Use to return just the exchange rates for a specified currency.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Rates
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
