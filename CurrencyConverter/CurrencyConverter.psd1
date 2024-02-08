@@ -12,7 +12,7 @@
 RootModule = 'CurrencyConverter.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.2'
+ModuleVersion = '0.0.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -30,7 +30,7 @@ CompanyName = 'wragg.io'
 Copyright = '(c) 2024 Mark Wragg. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'A PowerShell module for cmdlets related to currency conversion.'
+Description = 'A PowerShell wrapper for the open currency conversion API provided by ExchangeRate-API https://www.exchangerate-api.com/.'
 
 # Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '3.0'
@@ -95,7 +95,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = 'Currency','Conversion','Finance'
+        Tags = 'Currency','Conversion','Finance','ExchangeRate'
 
         # A URL to the license for this module.
         # LicenseUri = ''

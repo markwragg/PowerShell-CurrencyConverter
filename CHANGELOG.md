@@ -2,7 +2,7 @@
 
 ## !Deploy
 
-* Implemented `Get-ExchangeRate` to return the full result from the API as a PowerShell object.
+* Implemented `Get-ExchangeRate` to return the full result from the API as a PowerShell object, or a specified exchange rate.
 
 ## [0.0.1] - 2024-02-07
 

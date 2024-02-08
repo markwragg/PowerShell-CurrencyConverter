@@ -73,12 +73,36 @@ Describe 'Get-ExchangeRate' {
         Should -Not -Invoke Out-File
     }
 
+    It 'Gets the exchange rate from GBP to USD' {
+
+        Mock Test-Path { $true }
+
+        $result = Get-ExchangeRate -From GBP -To USD
+        $result | Should -Be 1.266552
+
+        Should -Invoke Get-Content -Exactly 1
+        Should -Not -Invoke Invoke-RestMethod
+        Should -Not -Invoke Out-File
+    }
+
     It 'Gets exchange rates for GBP using API' {
 
         Mock Test-Path { $false }
 
         $result = Get-ExchangeRate -Currency GBP
         $result | Should -BeOfType [pscustomobject]
+
+        Should -Not -Invoke Get-Content
+        Should -Invoke Invoke-RestMethod -Exactly 1
+        Should -Invoke Out-File -Exactly 1
+    }
+
+    It 'Gets the exchange rate from GBP to USD using API' {
+
+        Mock Test-Path { $false }
+
+        $result = Get-ExchangeRate -From GBP -To USD
+        $result | Should -Be 1.266552
 
         Should -Not -Invoke Get-Content
         Should -Invoke Invoke-RestMethod -Exactly 1
