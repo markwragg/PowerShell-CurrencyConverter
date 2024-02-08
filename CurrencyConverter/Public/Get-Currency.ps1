@@ -15,6 +15,9 @@ function Get-Currency {
     .PARAMETER Country
         The country to return.
 
+    .INPUTS
+        Currency codes can be provided via the pipeline.
+
     .EXAMPLE
         Get-Currency
 
@@ -30,6 +33,13 @@ function Get-Currency {
         Returns the code, name and country for GBP.
 
     .EXAMPLE
+        'GBP','USD' | Get-Currency
+
+        Description
+        -----------
+        Returns the code, name and country details for GBP and USD.
+
+    .EXAMPLE
         Get-Currency -Country 'United Kingdom'
 
         Description
@@ -43,9 +53,10 @@ function Get-Currency {
         -----------
         Returns all currencies that include the word 'Dollar'
     #>
+    [OutputType([pscustomobject])]
     [CmdletBinding(DefaultParameterSetName='Code')]
     param(
-        [parameter(ParameterSetName='Code')]
+        [parameter(ValueFromPipeline,ParameterSetName='Code',Position=0)]
         [alias('Code')]
         [string]
         $Currency,

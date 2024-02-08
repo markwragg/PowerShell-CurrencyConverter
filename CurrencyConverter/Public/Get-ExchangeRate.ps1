@@ -16,6 +16,9 @@ function Get-ExchangeRate {
     .PARAMETER Rates
         Switch: Use to return just the exchange rates for a specified currency.
 
+    .INPUTS
+        Currency codes can be provided via the pipeline.
+
     .EXAMPLE
         Get-ExchangeRate -Currency USD
 
@@ -37,51 +40,61 @@ function Get-ExchangeRate {
         -----------
         Returns the exchange rate from US Dollar to British Pound, example result: 0.792011
 
+    .EXAMPLE
+        'USD','GBP' | Get-ExchangeRate
+
+        Description
+        -----------
+        Returns the exchange rates for US Dollar and British Pound as PowerShell objects.
 
     #>
-    [CmdletBinding(DefaultParameterSetName='ToRate')]
+    [CmdletBinding(DefaultParameterSetName = 'ToRate')]
+    [OutputType([pscustomobject])]
+    [OutputType([pscustomobject], ParameterSetName=('Rates'))]
+    [OutputType([double], ParameterSetName=('ToRate'))]
     param(
         [validateset('AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BRL', 'BSD', 'BTN', 'BWP', 'BYN', 'BZD', 'CAD', 'CDF', 'CHF', 'CLP', 'CNY', 'COP', 'CRC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'FOK', 'GBP', 'GEL', 'GGP', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'IMP', 'INR', 'IQD', 'IRR', 'ISK', 'JEP', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KID', 'KMF', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRU', 'MUR', 'MVR', 'MWK', 'MXN', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLE', 'SOS', 'SRD', 'SSP', 'STN', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TVD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'UYU', 'UZS', 'VES', 'VND', 'VUV', 'WST', 'XAF', 'XCD', 'XDR', 'XOF', 'XPF', 'YER', 'ZAR', 'ZMW', 'ZWL')]
-        [parameter(Mandatory)]
+        [parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0, Mandatory)]
         [alias('From')]
         [string]
         $Currency,
 
         [validateset('AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BRL', 'BSD', 'BTN', 'BWP', 'BYN', 'BZD', 'CAD', 'CDF', 'CHF', 'CLP', 'CNY', 'COP', 'CRC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'FOK', 'GBP', 'GEL', 'GGP', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'IMP', 'INR', 'IQD', 'IRR', 'ISK', 'JEP', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KID', 'KMF', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRU', 'MUR', 'MVR', 'MWK', 'MXN', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLE', 'SOS', 'SRD', 'SSP', 'STN', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TVD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'UYU', 'UZS', 'VES', 'VND', 'VUV', 'WST', 'XAF', 'XCD', 'XDR', 'XOF', 'XPF', 'YER', 'ZAR', 'ZMW', 'ZWL')]
-        [parameter(ParameterSetName='ToRate')]
+        [parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'ToRate')]
         [string]
         $To,
 
-        [parameter(ParameterSetName='Rates')]
+        [parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'Rates')]
         [switch]
         $Rates
     )
+    process {
+        $FromFile = "$PSScriptRoot\${Currency}.json"
+        $CachedCurrency = Test-Path $FromFile
 
-    $FromFile = "$PSScriptRoot\${Currency}.json"
-    $CachedCurrency = Test-Path $FromFile
-
-    if ($CachedCurrency) {
-        $ExchangeRates = Get-Content $FromFile | ConvertFrom-Json
-    }
-
-    if (-not $CachedCurrency -or ((Get-Date) -gt ($ExchangeRates.time_next_update_unix | ConvertFrom-UnixTime))) {
-        $ExchangeRates = Invoke-RestMethod "https://open.er-api.com/v6/latest/${Currency}"
-        $ExchangeRates | ConvertTo-Json | Out-File "$PSScriptRoot\${Currency}.json" -Force
-    }
-
-    if ($ExchangeRates) {
-
-        if ($Rates) {
-            $ExchangeRates.rates
+        if ($CachedCurrency) {
+            $ExchangeRates = Get-Content $FromFile | ConvertFrom-Json
         }
-        elseif ($To) {
-            $ExchangeRates.rates.$To
+
+        if (-not $CachedCurrency -or ((Get-Date) -gt ($ExchangeRates.time_next_update_unix | ConvertFrom-UnixTime))) {
+            $ExchangeRates = Invoke-RestMethod "https://open.er-api.com/v6/latest/${Currency}"
+            $ExchangeRates | ConvertTo-Json | Out-File "$PSScriptRoot\${Currency}.json" -Force
+        }
+
+        if ($ExchangeRates) {
+
+            if ($Rates) {
+                $ExchangeRates.rates
+            }
+            elseif ($To) {
+                $ExchangeRates.rates.$To
+            }
+            else {
+                $ExchangeRates
+            }
         }
         else {
-            $ExchangeRates
+            Write-Error "Failed to retrieve rates for $Currency."
         }
-    }
-    else {
-        Write-Error "Failed to retrieve rates for $Currency."
     }
 }

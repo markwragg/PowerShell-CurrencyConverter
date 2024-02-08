@@ -16,6 +16,9 @@ function Convert-Currency {
     .PARAMETER To
         The currency to convert to.
 
+    .INPUTS
+        A numerical value, can be provided via the pipeline.
+
     .EXAMPLE
         100 | Convert-Currency -From USD -To GBP
 
@@ -30,8 +33,10 @@ function Convert-Currency {
         -----------
         Converts the value 100 from USD (US Dollar) to AUD (Australian Dollar), example result: 154.211800
     #>
+    [cmdletbinding()]
+    [OutputType([decimal])]
     param(
-        [parameter(ValueFromPipeline, Mandatory)]
+        [parameter(ValueFromPipeline, Mandatory, Position=0)]
         [decimal]
         $Value,
 

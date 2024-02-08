@@ -21,6 +21,9 @@
     .PARAMETER SymbolAtEnd
         Place the currency symbol after the value.
 
+    .INPUTS
+        A numerical value, can be provided via the pipeline.
+
     .EXAMPLE
         100 | Format-Currency -Currency USD
 
@@ -56,6 +59,8 @@
         -----------
         Formats the value as USD: 100.00$.
     #>
+    [CmdletBinding()]
+    [OutputType([string])]
     param(
         [parameter(ValueFromPipeline, Mandatory)]
         [decimal]

@@ -1,5 +1,12 @@
 # Change Log
 
+## !Deploy
+
+* Added position=0 for `-Value` of `Convert-Currency` so the value can be provided without naming the parameter.
+* Added Inputs and OutputType for cmdlet help.
+* Amended `Get-Currency` to accept the currency code values via pipeline.
+* Amended `Get-ExchangeRate` to accept the currency code values via pipeline.
+
 ## [0.0.4] - 2024-02-08
 
 * Implemented `Get-Currency` to return details of the currencies supported by this tool.
