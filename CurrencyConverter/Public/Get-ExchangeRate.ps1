@@ -16,6 +16,9 @@ function Get-ExchangeRate {
     .PARAMETER Rates
         Switch: Use to return just the exchange rates for a specified currency.
 
+    .PARAMETER APIKey
+        Optional: To use the v6 API, provide your API key, as provided by https://www.exchangerate-api.com/
+
     .INPUTS
         Currency codes can be provided via the pipeline.
 
@@ -66,28 +69,46 @@ function Get-ExchangeRate {
 
         [parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'Rates')]
         [switch]
-        $Rates
+        $Rates,
+
+        [string]
+        $APIKey
     )
     process {
-        $FromFile = "$PSScriptRoot\${Currency}.json"
-        $CachedCurrency = Test-Path $FromFile
-
-        if ($CachedCurrency) {
-            $ExchangeRates = Get-Content $FromFile | ConvertFrom-Json
+        if ($APIKey) {
+            $Cached = Join-Path $PSScriptRoot "${Currency}v6.json"
+            $APIUrl = "https://v6.exchangerate-api.com/v6/${APIKey}/latest/${Currency}"
+            $RateStr = 'conversion_rates'
+        }
+        else {
+            $Cached = Join-Path $PSScriptRoot "${Currency}.json"
+            $APIUrl = "https://open.er-api.com/v6/latest/${Currency}"
+            $RateStr = 'rates'
         }
 
-        if (-not $CachedCurrency -or ((Get-Date) -gt ($ExchangeRates.time_next_update_unix | ConvertFrom-UnixTime))) {
-            $ExchangeRates = Invoke-RestMethod "https://open.er-api.com/v6/latest/${Currency}"
-            $ExchangeRates | ConvertTo-Json | Out-File "$PSScriptRoot\${Currency}.json" -Force
+        $isCached = Test-Path $Cached
+
+        if ($isCached) {
+            $ExchangeRates = Get-Content $Cached | ConvertFrom-Json
+        }
+
+        if (-not $isCached -or ((Get-Date) -gt ($ExchangeRates.time_next_update_unix | ConvertFrom-UnixTime))) {
+            try {
+                $ExchangeRates = Invoke-RestMethod $APIUrl -ErrorAction Stop
+                $ExchangeRates | ConvertTo-Json | Out-File $Cached -Force
+            }
+            catch {
+                Write-Error $_
+            }
         }
 
         if ($ExchangeRates) {
 
             if ($Rates) {
-                $ExchangeRates.rates
+                $ExchangeRates.$RateStr
             }
             elseif ($To) {
-                $ExchangeRates.rates.$To
+                $ExchangeRates.$RateStr.$To
             }
             else {
                 $ExchangeRates

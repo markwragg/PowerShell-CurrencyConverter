@@ -2,11 +2,13 @@
 
 [![Build Status](https://dev.azure.com/markwragg/GitHub/_apis/build/status/markwragg.PowerShell-CurrencyConverter?branchName=main)](https://dev.azure.com/markwragg/GitHub/_build/latest?definitionId=12&branchName=main) ![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)
 
-A PowerShell wrapper for the open currency conversion API provided by [ExchangeRate-API](https://www.exchangerate-api.com/).
+A PowerShell wrapper for the currency conversion APIs provided by [ExchangeRate-API](https://www.exchangerate-api.com/).
 
 > [!IMPORTANT]
 > No registration / API key is required to use this API, but the currency rates are refreshed once a day and rate limiting may occur if you make too many requests.
 > The module caches the results for a currency to disk, so that the API only needs to be queried once a day for a specified currency.
+>
+> If you have registered at ExchangeRate-API, you can provide your API key via the `-APIKey` parameter of the `Convert-Currency` and `Get-ExchangeRate` cmdlets and this will invoke the v6 API.
 
 ## Installation
 

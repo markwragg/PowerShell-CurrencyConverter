@@ -1,5 +1,9 @@
 # Change Log
 
+## !Deploy
+
+* Added API Key support to `Convert-Currency` and `Get-ExchangeRate`. To use the v6 API, specify your API key via the `-APIKey` parameter.
+
 ## [0.0.5] - 2024-02-08
 
 * Added position=0 for `-Value` of `Convert-Currency` so the value can be provided without naming the parameter.

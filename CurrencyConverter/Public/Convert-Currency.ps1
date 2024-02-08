@@ -16,6 +16,9 @@ function Convert-Currency {
     .PARAMETER To
         The currency to convert to.
 
+    .PARAMETER APIKey
+        Optional: To use the v6 API, provide your API key, as provided by https://www.exchangerate-api.com/
+
     .INPUTS
         A numerical value, can be provided via the pipeline.
 
@@ -36,7 +39,7 @@ function Convert-Currency {
     [cmdletbinding()]
     [OutputType([decimal])]
     param(
-        [parameter(ValueFromPipeline, Mandatory, Position=0)]
+        [parameter(ValueFromPipeline, Mandatory, Position = 0)]
         [decimal]
         $Value,
 
@@ -48,7 +51,10 @@ function Convert-Currency {
         [validateset('AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BRL', 'BSD', 'BTN', 'BWP', 'BYN', 'BZD', 'CAD', 'CDF', 'CHF', 'CLP', 'CNY', 'COP', 'CRC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'FOK', 'GBP', 'GEL', 'GGP', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'IMP', 'INR', 'IQD', 'IRR', 'ISK', 'JEP', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KID', 'KMF', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRU', 'MUR', 'MVR', 'MWK', 'MXN', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLE', 'SOS', 'SRD', 'SSP', 'STN', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TVD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'UYU', 'UZS', 'VES', 'VND', 'VUV', 'WST', 'XAF', 'XCD', 'XDR', 'XOF', 'XPF', 'YER', 'ZAR', 'ZMW', 'ZWL')]
         [parameter(Mandatory)]
         [string]
-        $To
+        $To,
+
+        [string]
+        $APIKey
     )
 
     process {
@@ -56,20 +62,35 @@ function Convert-Currency {
             $Value
         }
         else {
-            $FromFile = "$PSScriptRoot\${From}.json"
-            $CachedCurrency = Test-Path $FromFile
-
-            if ($CachedCurrency) {
-                $ExchangeRates = Get-Content $FromFile | ConvertFrom-Json
+            if ($APIKey) {
+                $Cached = Join-Path $PSScriptRoot "${From}v6.json"
+                $APIUrl = "https://v6.exchangerate-api.com/v6/${APIKey}/latest/${From}"
+                $RateStr = 'conversion_rates'
+            }
+            else {
+                $Cached = Join-Path $PSScriptRoot "${From}.json"
+                $APIUrl = "https://open.er-api.com/v6/latest/${From}"
+                $RateStr = 'rates'
             }
 
-            if (-not $CachedCurrency -or ((Get-Date) -gt ($ExchangeRates.time_next_update_unix | ConvertFrom-UnixTime))) {
-                $ExchangeRates = Invoke-RestMethod "https://open.er-api.com/v6/latest/${From}"
-                $ExchangeRates | ConvertTo-Json | Out-File "$PSScriptRoot\${From}.json" -Force
+            $isCached = Test-Path $Cached
+
+            if ($isCached) {
+                $ExchangeRates = Get-Content $Cached | ConvertFrom-Json
             }
 
-            if ($ExchangeRates.rates.$To) {
-                $Value * $ExchangeRates.rates.$To
+            if (-not $isCached -or ((Get-Date) -gt ($ExchangeRates.time_next_update_unix | ConvertFrom-UnixTime))) {
+                try {
+                    $ExchangeRates = Invoke-RestMethod $APIUrl -ErrorAction Stop
+                    $ExchangeRates | ConvertTo-Json | Out-File $Cached -Force
+                }
+                catch {
+                    Write-Error $_
+                }
+            }
+
+            if ($ExchangeRates.$RateStr.$To) {
+                $Value * $ExchangeRates.$RateStr.$To
             }
             else {
                 Write-Error "Could not convert currency."
