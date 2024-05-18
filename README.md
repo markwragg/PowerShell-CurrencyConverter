@@ -2,11 +2,12 @@
 
 [![Build Status](https://dev.azure.com/markwragg/GitHub/_apis/build/status/markwragg.PowerShell-CurrencyConverter?branchName=main)](https://dev.azure.com/markwragg/GitHub/_build/latest?definitionId=12&branchName=main) ![coverage](https://img.shields.io/badge/coverage-41%25-red.svg)
 
-A PowerShell wrapper for the currency conversion APIs provided by [ExchangeRate-API](https://www.exchangerate-api.com/).
+A PowerShell wrapper for the open currency conversion APIs provided by [ExchangeRate-API](https://www.exchangerate-api.com/) and (for Crypto currencies) [CoinBase](https://api.coinbase.com/v2).
 
 > [!IMPORTANT]
-> No registration / API key is required to use this API, but the currency rates are refreshed once a day and rate limiting may occur if you make too many requests.
-> The module caches the results for a currency to disk, so that the API only needs to be queried once a day for a specified currency.
+> No registration / API keys are required to use these APIs, but the currency rates from ExchangeRate-API are refreshed once a day and rate limiting may occur if you make too many requests.
+> The module caches the results for a currency via ExchangeRate-API to disk, so that the API only needs to be queried once a day for a specified currency. You can also cache crypto currency requests
+> to disk by providing the `-CacheSeconds` parameter. Note that the CoinBase API refreshes exchange rates frequently (appears to be every 15 seconds).
 >
 > If you have registered at ExchangeRate-API, you can provide your API key via the `-APIKey` parameter of the `Convert-Currency` and `Get-ExchangeRate` cmdlets and this will invoke the v6 API.
 
@@ -22,12 +23,15 @@ Install-Module CurrencyConverter
 
 This module provides the following cmdlets:
 
-Cmdlet               | Description
--------------------- | ---------------------------------------------------------------------------------------------------------
-Convert-Currency     | Converts a decimal value between two specified currencies.
-Format-Currency      | Formats a value as a string with the currency symbol for a specified country.
-Get-Currency         | Returns the list of supported currency codes along with their currency name and country code.
-Get-ExchangeRate     | Returns all exchange rates for a specified currency, or a specified exchange rate between two currencies.
+Cmdlet                 | Description
+---------------------- | ---------------------------------------------------------------------------------------------------------------------------------
+Convert-Currency       | Converts a decimal value between two specified currencies using ExchangeRate-API.
+Convert-CryptoCurrency | Converts a decimal value between two specified crypto/non-crypto currencies using CoinBase API.
+Format-Currency        | Formats a value as a string with the currency symbol for a specified country or crypto currency (where supported).
+Get-Currency           | Returns the list of supported currency codes along with their currency name and country code.
+Get-CryptoCurrency     | Returns the list of supported crypto currency codes along with their currency name and type (crypto or fiat).
+Get-ExchangeRate       | Returns all exchange rates for a specified currency, or a specified exchange rate between two currencies.
+Get-CryptoExchangeRate | Returns all exchange rates for a specified crypto currency, or a specified exchange rate between two crypto/non-crypto currencies.
 
 To perform a simple currency conversion, execute:
 
@@ -35,7 +39,13 @@ To perform a simple currency conversion, execute:
 Convert-Currency -Value 100 -From USD -To GBP
 ```
 
-To use the registered API, provide your key via the `-APIKey` parameter:
+Or for a crypto currency:
+
+```powershell
+Convert-CryptoCurrency -Value 100 -From BTC -To GBP
+```
+
+To use the ExhangeRate-API registered API, provide your key via the `-APIKey` parameter:
 
 ```powershell
 Convert-Currency -Value 100 -From USD -To GBP -ApiKey yourapikeystringhere
@@ -48,12 +58,14 @@ The value can alternatively be provided via the pipeline:
 
 ```powershell
 100 | Convert-Currency -From EUR -To CAD
+100 | Convert-CryptoCurrency -From BTC -To GBP
 ```
 
 This means that you can pipe multiple values in to perform a series of conversions:
 
 ```powershell
 100,200,250 | Convert-Currency -From USD -To JPY
+100,200,250 | Convert-CryptoCurrency -From BTC -To GBP
 ```
 
 If you would like to return the result as a formatted string including the currency symbol and rounded to a number of decimal places, execute:
@@ -63,6 +75,13 @@ If you would like to return the result as a formatted string including the curre
 ```
 ```plaintext
 $100.00
+```
+
+```powershell
+100 | Format-Currency -Currency ETH
+```
+```plaintext
+Ξ100.00
 ```
 
 This cmdlet rounds to two decimal places by default. To specify a different number of decimal places, use the `-Decimals` parameter:
@@ -107,10 +126,17 @@ To see a full list of currency codes supported by this tool, along with their na
 Get-Currency
 ```
 
+To see a full list of crypto currency codes supported by this tool, along with their name and type, execute:
+
+```powershell
+Get-CryptoCurrency
+```
+
 You can also specify a specific code (this requires an exact match):
 
 ```powershell
 Get-Currency -Currency GBP
+Get-CryptoCurrency -Currency BTC
 ```
 
 Or you can filter by currency or country name (this will return partial matches):
@@ -152,6 +178,13 @@ To return the full result from the API as a PowerShell object, use the `Get-Exch
 ```powershell
 Get-ExchangeRate -Currency USD
 ```
+
+Or for crypto currencies:
+
+```powershell
+Get-CryptoExchangeRate -Currency BTC
+```
+
 To use the registered API, provide your key via the `-APIKey` parameter:
 
 ```powershell
@@ -199,7 +232,7 @@ rates                 : @{USD=1; AED=3.6725; AFN=73.755496; ALL=96.818553; AMD=4
                         ZWL=10811.587531}
 ```
 
-If you want to return just the exchange rates, you can execute `Get-ExchangeRate` and specify `-Rates`:
+If you want to return just the exchange rates, you can execute `Get-ExchangeRate` or `Get-CryptoExchangeRate` and specify `-Rates`:
 
 ```powershell
 Get-ExchangeRate -Currency GBP -Rates
@@ -222,7 +255,7 @@ BDT : 138.549806
 ...
 ```
 
-If you just want to return a specific exchange rate, you can execute `Get-ExchangeRate` and specify `-From` and `-To`:
+If you just want to return a specific exchange rate, you can execute `Get-ExchangeRate` or `Get-CryptoExchangeRate` and specify `-From` and `-To`:
 
 ```powershell
 Get-ExchangeRate -From GBP -To USD
