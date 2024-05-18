@@ -35,8 +35,8 @@ Describe 'Format-Currency' {
 
         It 'Returns the currency symbol and formatted value after conversion for a cryptocurrency' {
 
-            $result = Format-Currency -Currency 'ETH' -Value 1234 -ConvertTo 'ETH'
-            $result | Should -Be 'Ξ1,234.00'
+            $result = Format-Currency -Currency 'ETH' -Value 1234 -ConvertTo 'BTC'
+            $result | Should -Be '₿1,234.00'
         }
 
         It 'Returns the formatted value with the symbol at the end' {
@@ -68,8 +68,8 @@ Describe 'Format-Currency' {
 
         It 'Returns the currency symbol and formatted value for a cryptocurrency' {
 
-            $result = 1234 | Format-Currency -Currency 'ETH'
-            $result | Should -Be 'Ξ1,234.00'
+            $result = 1234 | Format-Currency -Currency 'BTC'
+            $result | Should -Be '₿1,234.00'
         }
     }
 
