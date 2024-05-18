@@ -1,6 +1,6 @@
 # Change Log
 
-## !Deploy
+## [0.0.7] - 2024-05-18
 
 * Implemented `Convert-CryptoCurrency`, `Get-CryptoCurrency` and `Get-CryptoExchangeRate` cmdlets to support the conversion of crypto currencies via the CoinBase API.
 * Updated `Format-Currency` to support some crypto currency symbols (where known) and the conversion of crypto currencies.
