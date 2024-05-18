@@ -3,6 +3,7 @@ Describe 'Format-Currency' {
     BeforeAll {
         . $PSScriptRoot/../CurrencyConverter/Public/Format-Currency.ps1
         . $PSScriptRoot/../CurrencyConverter/Public/Convert-Currency.ps1
+        . $PSScriptRoot/../CurrencyConverter/Public/Convert-CryptoCurrency.ps1
         . $PSScriptRoot/../CurrencyConverter/Private/ConvertFrom-UnixTime.ps1
     }
 
@@ -20,10 +21,22 @@ Describe 'Format-Currency' {
             $result | Should -Be '$1,234.00'
         }
 
+        It 'Returns the currency symbol and formatted value for a cryptocurrency' {
+
+            $result = Format-Currency -Currency 'BTC' -Value 1234
+            $result | Should -Be '₿1,234.00'
+        }
+
         It 'Returns the currency symbol and formatted value after conversion' {
 
             $result = Format-Currency -Currency 'USD' -Value 1234 -ConvertTo 'USD'
             $result | Should -Be '$1,234.00'
+        }
+
+        It 'Returns the currency symbol and formatted value after conversion for a cryptocurrency' {
+
+            $result = Format-Currency -Currency 'ETH' -Value 1234 -ConvertTo 'ETH'
+            $result | Should -Be 'Ξ1,234.00'
         }
 
         It 'Returns the formatted value with the symbol at the end' {
@@ -52,6 +65,12 @@ Describe 'Format-Currency' {
             $result = 1234 | Format-Currency -Currency 'USD'
             $result | Should -Be '$1,234.00'
         }
+
+        It 'Returns the currency symbol and formatted value for a cryptocurrency' {
+
+            $result = 1234 | Format-Currency -Currency 'ETH'
+            $result | Should -Be 'Ξ1,234.00'
+        }
     }
 
     Context 'When given a negative value' {
@@ -60,6 +79,12 @@ Describe 'Format-Currency' {
 
             $result = Format-Currency -Currency 'USD' -Value -1234.5678
             $result | Should -Be '$-1,234.57'
+        }
+
+        It 'Returns the currency symbol and formatted negative value for a cryptocurrency' {
+
+            $result = Format-Currency -Currency 'DOGE' -Value -1234.5678
+            $result | Should -Be 'Ð-1,234.57'
         }
     }
 }

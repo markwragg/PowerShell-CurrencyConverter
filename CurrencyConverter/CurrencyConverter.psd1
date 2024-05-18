@@ -12,7 +12,7 @@
 RootModule = 'CurrencyConverter.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.7'
+ModuleVersion = '0.0.6'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -30,7 +30,7 @@ CompanyName = 'wragg.io'
 Copyright = '(c) 2024 Mark Wragg. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'A PowerShell wrapper for the open currency conversion API provided by ExchangeRate-API https://www.exchangerate-api.com/.'
+Description = 'A PowerShell wrapper for the open currency conversion APIs provided by ExchangeRate-API https://www.exchangerate-api.com/ and (for Crypto currencies) CoinBase https://api.coinbase.com/v2.'
 
 # Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '3.0'
@@ -69,7 +69,7 @@ PowerShellVersion = '3.0'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('Convert-Currency','Format-Currency','Get-Currency','Get-ExchangeRate')
+FunctionsToExport = @('Convert-Currency','Format-Currency','Get-Currency','Get-ExchangeRate','Convert-CryptoCurrency','Get-CryptoCurrency','Get-CryptoExchangeRate')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -95,7 +95,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = 'Currency','Conversion','Finance','ExchangeRate'
+        Tags = 'Currency','Conversion','Finance','ExchangeRate','Crypto'
 
         # A URL to the license for this module.
         # LicenseUri = ''
