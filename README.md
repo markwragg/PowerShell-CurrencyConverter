@@ -1,6 +1,6 @@
 # PowerShell Currency Converter
 
-[![Build Status](https://dev.azure.com/markwragg/GitHub/_apis/build/status/markwragg.PowerShell-CurrencyConverter?branchName=main)](https://dev.azure.com/markwragg/GitHub/_build/latest?definitionId=12&branchName=main) ![coverage](https://img.shields.io/badge/coverage-41%25-red.svg)
+[![Build Status](https://dev.azure.com/markwragg/GitHub/_apis/build/status/markwragg.PowerShell-CurrencyConverter?branchName=main)](https://dev.azure.com/markwragg/GitHub/_build/latest?definitionId=12&branchName=main) ![coverage](https://img.shields.io/badge/coverage-99%25-brightgreen.svg)
 
 A PowerShell wrapper for the open currency conversion APIs provided by [ExchangeRate-API](https://www.exchangerate-api.com/) and (for Crypto currencies) [CoinBase](https://api.coinbase.com/v2).
 
