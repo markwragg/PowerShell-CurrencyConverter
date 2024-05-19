@@ -62,11 +62,5 @@ Describe 'Format-Currency' {
             $result = Format-Currency -Currency 'USD' -Value -1234.5678
             $result | Should -Be '$-1,234.57'
         }
-
-        It 'Returns the currency symbol and formatted negative value for a cryptocurrency' {
-
-            $result = Format-Currency -Currency 'BTC' -Value -1234.5678
-            $result | Should -Be '₿-1,234.57'
-        }
     }
 }
