@@ -289,10 +289,10 @@
         $CurrencySymbol = $CurrencySymbols[$Currency]
         
         if ($SymbolAtEnd) {
-            "{0:n$Decimals}$CurrencySymbol" -f $Value
+            ("{0:n$Decimals}" -f $Value) + $CurrencySymbol
         }
         else {
-            "$CurrencySymbol{0:n$Decimals}" -f $Value
+            $CurrencySymbol + ("{0:n$Decimals}" -f $Value)
         }
     }
 }
