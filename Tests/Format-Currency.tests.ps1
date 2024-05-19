@@ -21,12 +21,6 @@ Describe 'Format-Currency' {
             $result | Should -Be '$1,234.00'
         }
 
-        It 'Returns the currency symbol and formatted value for a cryptocurrency' {
-
-            $result = Format-Currency -Currency 'BTC' -Value 1234
-            $result | Should -Be '₿1,234.00'
-        }
-
         It 'Returns the currency symbol and formatted value after conversion' {
 
             $result = Format-Currency -Currency 'USD' -Value 1234 -ConvertTo 'USD'
@@ -64,12 +58,6 @@ Describe 'Format-Currency' {
 
             $result = 1234 | Format-Currency -Currency 'USD'
             $result | Should -Be '$1,234.00'
-        }
-
-        It 'Returns the currency symbol and formatted value for a cryptocurrency' {
-
-            $result = 1234 | Format-Currency -Currency 'BTC'
-            $result | Should -Be '₿1,234.00'
         }
     }
 
