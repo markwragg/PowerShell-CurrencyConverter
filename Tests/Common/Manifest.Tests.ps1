@@ -1,22 +1,14 @@
 BeforeAll {
-    if (-not $env:BHProjectName) {
-        $env:BHProjectName = (Get-ChildItem "$PSScriptRoot\..\..\*.psm1" -Recurse).BaseName
-    }
+    $env:BHProjectPath = Join-Path $PSScriptRoot "../../"
+    $env:BHProjectName = (Get-ChildItem $env:BHProjectPath -Filter '*.psm1' -Recurse).BaseName
+    $env:BHPSModuleManifest = (Get-ChildItem $env:BHProjectPath -Filter "${env:BHProjectName}.psd1" -Recurse).FullName
+    
+    $moduleName = $env:BHProjectName
+    $manifest = Import-PowerShellDataFile -Path $env:BHPSModuleManifest
+    $outputManifestPath = Join-Path -Path (Join-Path $env:BHProjectPath $env:BHProjectName) "$($moduleName).psd1"
+    $manifestData = Test-ModuleManifest -Path $outputManifestPath -Verbose:$false -ErrorAction Stop -WarningAction SilentlyContinue
 
-    if (-not $env:BHPSModuleManifest) {
-        $env:BHPSModuleManifest = (Get-ChildItem "$PSScriptRoot\..\..\$env:BHProjectName\$env:BHProjectName.psd1").FullName
-    }
-
-    if (-not $env:BHProjectPath) {
-        $env:BHProjectPath = "$PSScriptRoot\..\..\"
-    }
-
-    $moduleName         = $env:BHProjectName
-    $manifest           = Import-PowerShellDataFile -Path $env:BHPSModuleManifest
-    $outputManifestPath = Join-Path -Path $PSScriptRoot\..\..\$env:BHProjectName -Child "$($moduleName).psd1"
-    $manifestData       = Test-ModuleManifest -Path $outputManifestPath -Verbose:$false -ErrorAction Stop -WarningAction SilentlyContinue
-
-    $changelogPath    = Join-Path -Path $env:BHProjectPath -Child 'CHANGELOG.md'
+    $changelogPath = Join-Path -Path $env:BHProjectPath -Child 'CHANGELOG.md'
     $changelogVersion = Get-Content $changelogPath | ForEach-Object {
         if ($_ -match "^##\s\[(?<Version>(\d+\.){1,3}\d+)\]") {
             $changelogVersion = $matches.Version
@@ -24,7 +16,7 @@ BeforeAll {
         }
     }
 
-    $script:manifest    = $null
+    $script:manifest = $null
 }
 
 Describe 'Module manifest' {
@@ -56,7 +48,7 @@ Describe 'Module manifest' {
         }
 
         It 'Has a valid guid' {
-            {[guid]::Parse($manifestData.Guid)} | Should -Not -Throw
+            { [guid]::Parse($manifestData.Guid) } | Should -Not -Throw
         }
 
         It 'Has a valid copyright' {

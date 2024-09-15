@@ -11,14 +11,12 @@ BeforeDiscovery {
         $params | Where-Object { $_.Name -notin $commonParams } | Sort-Object -Property Name -Unique
     }
 
-    if (-not $env:BHProjectName) {
-        $env:BHProjectName = (Get-ChildItem $PSScriptRoot\..\..\*.psm1 -Recurse).BaseName
-    }
+    $env:BHProjectName = (Get-ChildItem $PSScriptRoot/../../*.psm1 -Recurse).BaseName
 
     # Get module commands
     # Remove all versions of the module from the session. Pester can't handle multiple versions.
     Get-Module $env:BHProjectName | Remove-Module -Force -ErrorAction Ignore
-    Import-Module -Name $PSScriptRoot\..\..\$env:BHProjectName -Verbose:$false -ErrorAction Stop
+    Import-Module -Name $PSScriptRoot/../../$env:BHProjectName -Verbose:$false -ErrorAction Stop
     $params = @{
         Module      = (Get-Module $env:BHProjectName)
         CommandType = [System.Management.Automation.CommandTypes[]]'Cmdlet, Function' # Not alias
