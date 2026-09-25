@@ -86,9 +86,15 @@ Task 'CombineFunctionsAndStage' -Depends 'Clean' {
     $publicFunctions = @( Get-ChildItem -Path "$env:BHModulePath\Public\*.ps1" -Recurse -ErrorAction 'SilentlyContinue' )
     $privateFunctions = @( Get-ChildItem -Path "$env:BHModulePath\Private\*.ps1" -Recurse -ErrorAction 'SilentlyContinue' )
 
-    # Combine functions into a single .psm1 module
+    # Combine functions into a single .psm1 module.
+    # Read/write explicitly as UTF8 with BOM (rather than relying on Get-Content/Add-Content's
+    # default encoding) because Windows PowerShell defaults to the system ANSI codepage when
+    # creating a new file, which silently mangles/drops the non-ASCII currency symbols used in
+    # Format-Currency.ps1 (e.g. '?' in place of characters like '₿'). PowerShell 7+ defaults to
+    # UTF8 anyway, so this only changes behaviour under Windows PowerShell.
     $combinedModulePath = Join-Path -Path $StagingModulePath -ChildPath "$($env:BHProjectName).psm1"
-    @($publicFunctions + $privateFunctions) | Get-Content | Add-Content -Path $combinedModulePath
+    $combinedContent = @($publicFunctions + $privateFunctions) | Get-Content -Raw
+    [System.IO.File]::WriteAllText($combinedModulePath, ($combinedContent -join "`r`n"), [System.Text.UTF8Encoding]::new($true))
 
     # Copy other required folders and files if they exist
     $PathsToCopy = @(
