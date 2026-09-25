@@ -3,6 +3,7 @@ Describe 'Format-Currency' {
     BeforeAll {
         . $PSScriptRoot/../CurrencyConverter/Public/Format-Currency.ps1
         . $PSScriptRoot/../CurrencyConverter/Public/Convert-Currency.ps1
+        . $PSScriptRoot/../CurrencyConverter/Public/Convert-CryptoCurrency.ps1
         . $PSScriptRoot/../CurrencyConverter/Private/ConvertFrom-UnixTime.ps1
     }
 

@@ -424,6 +424,18 @@ Task 'Deploy' -Depends 'Init' {
 
         if ($ChangeLog -contains '## !Deploy') {
 
+            # Load the module, read the exported functions, update the psd1 FunctionsToExport
+            Set-ModuleFunctions -Name $env:BHPSModuleManifest
+
+            # Bump the module version
+            try {
+                $Version = Get-NextPSGalleryVersion -Name $env:BHProjectName -ErrorAction 'Stop'
+                Update-Metadata -Path $env:BHPSModuleManifest -PropertyName 'ModuleVersion' -Value $Version -ErrorAction 'Stop'
+            }
+            catch {
+                throw "Failed to update version for '$env:BHProjectName': $_.`n"
+            }
+
             $Params = @{
                 Path    = "$ProjectRoot/Build/deploy.psdeploy.ps1"
                 Force   = $true
