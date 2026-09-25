@@ -10,7 +10,7 @@
         The currency value.
 
     .PARAMETER Currency
-        The currency represented by value.
+        The currency represented by value. If not specified, this can be picked up from the pipeline by property name, e.g. from the output of Convert-Currency or Convert-CryptoCurrency.
 
     .PARAMETER Decimals
         The number of decimal places to round the value to. Default: 2
@@ -22,7 +22,7 @@
         Place the currency symbol after the value.
 
     .INPUTS
-        A numerical value, can be provided via the pipeline.
+        A numerical value, can be provided via the pipeline. If piped from Convert-Currency or Convert-CryptoCurrency, the Currency parameter is automatically populated from the destination currency of that conversion.
 
     .EXAMPLE
         100 | Format-Currency -Currency USD
@@ -30,6 +30,13 @@
         Description
         -----------
         Formats the value (provided via the pipeline) as USD: $100.00.
+
+    .EXAMPLE
+        Convert-Currency -Value 100 -From USD -To EUR | Format-Currency
+
+        Description
+        -----------
+        Converts 100 USD to EUR and formats the result as EUR, with the Currency parameter inferred from the pipeline, e.g.: €92.15
 
     .EXAMPLE
         100 | Format-Currency -Currency USD -ConvertTo GBP

@@ -111,10 +111,10 @@ Format-Currency -Value 100 -Currency GBP -SymbolAtEnd
 125.85£
 ```
 
-You can also pipe the result of `Convert-Currency` to `Format-Currency`:
+You can also pipe the result of `Convert-Currency` or `Convert-CryptoCurrency` to `Format-Currency`. The destination currency is automatically picked up from the pipeline, so there's no need to specify `-Currency`:
 
 ```powershell
-Convert-Currency -Value 100 -From USD -To EUR | Format-Currency -Currency EUR
+Convert-Currency -Value 100 -From USD -To EUR | Format-Currency
 ```
 ```plaintext
 €93.04

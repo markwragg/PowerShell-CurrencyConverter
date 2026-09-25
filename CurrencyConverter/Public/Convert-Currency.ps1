@@ -1,4 +1,4 @@
-function Convert-Currency {
+﻿function Convert-Currency {
     <#
     .SYNOPSIS
         Converts a decimal value between specified currencies
@@ -35,6 +35,13 @@ function Convert-Currency {
         Description
         -----------
         Converts the value 100 from USD (US Dollar) to AUD (Australian Dollar), example result: 154.211800
+
+    .EXAMPLE
+        Convert-Currency -Value 100 -From USD -To EUR | Format-Currency
+
+        Description
+        -----------
+        Converts 100 USD to EUR and pipes the result to Format-Currency, which picks up the destination currency (EUR) from the pipeline, example result: €92.15
     #>
     [cmdletbinding()]
     [OutputType([decimal])]
@@ -59,7 +66,7 @@ function Convert-Currency {
 
     process {
         if ($From -eq $To) {
-            $Value
+            $Value | Add-Member -NotePropertyName Currency -NotePropertyValue $To -PassThru
         }
         else {
             if ($APIKey) {
@@ -90,7 +97,7 @@ function Convert-Currency {
             }
 
             if ($ExchangeRates.$RateStr.$To) {
-                $Value * $ExchangeRates.$RateStr.$To
+                $Value * $ExchangeRates.$RateStr.$To | Add-Member -NotePropertyName Currency -NotePropertyValue $To -PassThru
             }
             else {
                 Write-Error "Could not convert currency."

@@ -1,4 +1,4 @@
-function Convert-CryptoCurrency {
+﻿function Convert-CryptoCurrency {
     <#
     .SYNOPSIS
         Converts a decimal value between specified crypto and/or non-crypto currencies
@@ -35,6 +35,13 @@ function Convert-CryptoCurrency {
         Description
         -----------
         Converts the value 100 from ETH (Ether) to GBP (British Pound), example result: 245122.500
+
+    .EXAMPLE
+        Convert-CryptoCurrency -Value 1 -From BTC -To ETH | Format-Currency
+
+        Description
+        -----------
+        Converts 1 BTC to ETH and pipes the result to Format-Currency, which picks up the destination currency (ETH) from the pipeline, example result: Ξ21.4961307
     #>
     [cmdletbinding()]
     [OutputType([decimal])]
@@ -59,7 +66,7 @@ function Convert-CryptoCurrency {
 
     process {
         if ($From -eq $To) {
-            $Value
+            $Value | Add-Member -NotePropertyName Currency -NotePropertyValue $To -PassThru
         }
         else {
             $Cached = Join-Path $PSScriptRoot "Crypto-${From}.json"
@@ -87,7 +94,7 @@ function Convert-CryptoCurrency {
             }
 
             if ($ExchangeRates.$RateStr.$To) {
-                $Value * $ExchangeRates.$RateStr.$To
+                $Value * $ExchangeRates.$RateStr.$To | Add-Member -NotePropertyName Currency -NotePropertyValue $To -PassThru
             }
             else {
                 Write-Error "Could not convert crypto currency."

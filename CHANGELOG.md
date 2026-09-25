@@ -1,5 +1,9 @@
 # Change Log
 
+## !Deploy
+
+* Updated `Convert-Currency` and `Convert-CryptoCurrency` to attach the destination currency to their output, so that `Format-Currency` can automatically pick it up via the pipeline without needing to specify `-Currency`.
+
 ## [0.0.7] - 2024-05-18
 
 * Implemented `Convert-CryptoCurrency`, `Get-CryptoCurrency` and `Get-CryptoExchangeRate` cmdlets to support the conversion of crypto currencies via the CoinBase API.
