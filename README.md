@@ -16,6 +16,8 @@ A PowerShell module to provide currency conversion tools by wrapping the currenc
 >
 > If you have registered at ExchangeRate-API, you can provide your API key via the `-APIKey` parameter of the `Convert-Currency` and `Get-ExchangeRate` cmdlets and this will invoke the v6 API.
 
+![PowerShell CurrencyConverter example usage](/Media/example-usage.png)
+
 ## Installation
 
 The module is published in the PowerShell Gallery, so if you have PowerShell 5 or newer can be installed by running:
@@ -28,20 +30,23 @@ Install-Module CurrencyConverter
 
 This module provides the following cmdlets:
 
-Cmdlet                 | Description
----------------------- | ---------------------------------------------------------------------------------------------------------------------------------
-Convert-Currency       | Converts a decimal value between two specified currencies using ExchangeRate-API.
-Convert-CryptoCurrency | Converts a decimal value between two specified crypto/non-crypto currencies using CoinBase API.
-Format-Currency        | Formats a value as a string with the currency symbol for a specified country or crypto currency (where supported).
-Get-Currency           | Returns the list of supported currency codes along with their currency name and country code.
-Get-CryptoCurrency     | Returns the list of supported crypto currency codes along with their currency name and type (crypto or fiat).
-Get-ExchangeRate       | Returns all exchange rates for a specified currency, or a specified exchange rate between two currencies.
-Get-CryptoExchangeRate | Returns all exchange rates for a specified crypto currency, or a specified exchange rate between two crypto/non-crypto currencies.
+Cmdlet                         | Description
+------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------
+Convert-Currency               | Converts a decimal value between two specified currencies using ExchangeRate-API.
+Convert-CryptoCurrency         | Converts a decimal value between two specified crypto/non-crypto currencies using CoinBase API.
+Format-Currency                | Formats a value as a string with the currency symbol for a specified country or crypto currency (where supported).
+Get-Currency                   | Returns the list of supported currency codes along with their currency name and country code.
+Get-CryptoCurrency             | Returns the list of supported crypto currency codes along with their currency name and type (crypto or fiat).
+Get-ExchangeRate               | Returns all exchange rates for a specified currency, or a specified exchange rate between two currencies.
+Get-CryptoExchangeRate         | Returns all exchange rates for a specified crypto currency, or a specified exchange rate between two crypto/non-crypto currencies.
 
 To perform a simple currency conversion, execute:
 
 ```powershell
 Convert-Currency -Value 100 -From USD -To GBP
+```
+```plaintext
+74.666100
 ```
 
 Or for a crypto currency:
