@@ -1,6 +1,6 @@
 # Change Log
 
-## !Deploy
+## [1.0.2] - 2026-10-23
 
 * Renamed `Get-CurrencyConverterDefault` and `Set-CurrencyConverterDefault` to `Get-CurrencyDefault` and `Set-CurrencyDefault`.
 

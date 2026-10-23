@@ -6,8 +6,7 @@ Gets the default preferences saved by Set-CurrencyDefault.
 ## SYNTAX
 
 ```
-Get-CurrencyDefault [[-DefaultsPath] <String>] [-ProgressAction <ActionPreference>]
- [<CommonParameters>]
+Get-CurrencyDefault [[-DefaultsPath] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
