@@ -1,5 +1,9 @@
 # Change Log
 
+## !Deploy
+
+* Added `Add-CurrencyMember` cmdlet, to add a new property to an object that is a currency conversion of one of its existing properties.
+
 ## [1.0.2] - 2026-10-23
 
 * Renamed `Get-CurrencyConverterDefault` and `Set-CurrencyConverterDefault` to `Get-CurrencyDefault` and `Set-CurrencyDefault`.

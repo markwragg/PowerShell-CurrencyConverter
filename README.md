@@ -32,6 +32,7 @@ This module provides the following cmdlets:
 
 Cmdlet                         | Description
 ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------
+Add-CurrencyMember             | Adds a new member to an object that is a currency conversion of one of its existing properties.
 Convert-Currency               | Converts a decimal value between two specified currencies using ExchangeRate-API.
 Convert-CryptoCurrency         | Converts a decimal value between two specified crypto/non-crypto currencies using CoinBase API.
 Format-Currency                | Formats a value as a string with the currency symbol for a specified country or crypto currency (where supported).
@@ -319,3 +320,18 @@ Explicitly specifying a parameter always overrides the saved default:
 ```
 
 Defaults are saved to `~/.currencyconverter`. To see the currently saved defaults, use `Get-CurrencyDefault`. To remove all saved defaults, use `Set-CurrencyDefault -Reset`.
+
+### Adding a converted property to an object
+
+If you have an object with a property that represents a currency value, you can use `Add-CurrencyMember` to add a new property to it that is a currency conversion of that value:
+
+```powershell
+[pscustomobject]@{ Product = 'Widget'; Price = 100 } | Add-CurrencyMember -Property Price -From USD -To GBP -PassThru
+```
+```plaintext
+Product Price PriceGBP
+------- ----- --------
+Widget    100    79.20
+```
+
+By default the new property is named `<Property><To>`, e.g. `PriceGBP`. You can specify a different name with `-MemberName`. `-From` and `-To` also fall back to any saved defaults, and crypto currency codes are converted via `Convert-CryptoCurrency` automatically. As with `Add-Member`, the updated object is only returned to the pipeline if `-PassThru` is specified.
