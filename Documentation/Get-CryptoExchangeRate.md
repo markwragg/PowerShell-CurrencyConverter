@@ -7,13 +7,13 @@ Returns all crypto exchange rates for a specified currency, or a specified excha
 
 ### ToRate (Default)
 ```
-Get-CryptoExchangeRate [-Currency] <String> [-To <String>] [-CacheSeconds <Object>]
+Get-CryptoExchangeRate [[-Currency] <String>] [-To <String>] [-CacheSeconds <Object>]
  [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### Rates
 ```
-Get-CryptoExchangeRate [-Currency] <String> [-Rates] [-CacheSeconds <Object>]
+Get-CryptoExchangeRate [[-Currency] <String>] [-Rates] [-CacheSeconds <Object>]
  [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
@@ -59,26 +59,38 @@ Description
 -----------
 Returns the exchange rates for Bitcoin and Ether as PowerShell objects.
 
+### EXAMPLE 5
+```
+Set-CurrencyConverterDefault -From USD -To BTC
+Get-CryptoExchangeRate
+```
+
+Description
+-----------
+Saves USD/BTC as the default currencies, then returns the exchange rate from US Dollar to Bitcoin without needing to specify -Currency/-To.
+
 ## PARAMETERS
 
 ### -Currency
 The currency to return exchange rates for.
-(Alias: From)
+(Alias: From) Defaults to the value saved with
+Set-CurrencyConverterDefault -From, if any.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases: From
 
-Required: True
+Required: False
 Position: 1
-Default value: None
+Default value: (Get-CurrencyConverterDefaultValue -Name 'From')
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
 ### -To
 The currency to return the exchange rate to (from the currency specified as -Currency or -From).
+Defaults to the value saved with Set-CurrencyConverterDefault -To, if any.
 
 ```yaml
 Type: String
@@ -87,7 +99,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: (Get-CurrencyConverterDefaultValue -Name 'To')
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```

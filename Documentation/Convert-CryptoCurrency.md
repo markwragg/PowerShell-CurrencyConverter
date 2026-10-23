@@ -6,7 +6,7 @@ Converts a decimal value between specified crypto and/or non-crypto currencies
 ## SYNTAX
 
 ```
-Convert-CryptoCurrency [-Value] <Decimal> -From <String> -To <String> [-CacheSeconds <Object>]
+Convert-CryptoCurrency [-Value] <Decimal> [-From <String>] [-To <String>] [-CacheSeconds <Object>]
  [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
@@ -43,6 +43,16 @@ Description
 -----------
 Converts 1 BTC to ETH and pipes the result to Format-Currency, which picks up the destination currency (ETH) from the pipeline, example result: Ξ21.4961307
 
+### EXAMPLE 4
+```
+Set-CurrencyConverterDefault -From BTC -To ETH
+Convert-CryptoCurrency -Value 1
+```
+
+Description
+-----------
+Saves BTC/ETH as the default currencies to convert between, then converts 1 BTC to ETH without needing to specify -From/-To.
+
 ## PARAMETERS
 
 ### -Value
@@ -62,30 +72,32 @@ Accept wildcard characters: False
 
 ### -From
 The currency to convert from.
+Defaults to the value saved with Set-CurrencyConverterDefault -From, if any.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
-Default value: None
+Default value: (Get-CurrencyConverterDefaultValue -Name 'From')
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -To
 The currency to convert to.
+Defaults to the value saved with Set-CurrencyConverterDefault -To, if any.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: Named
-Default value: None
+Default value: (Get-CurrencyConverterDefaultValue -Name 'To')
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

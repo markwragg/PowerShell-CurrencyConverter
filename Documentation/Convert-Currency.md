@@ -6,7 +6,7 @@ Converts a decimal value between specified currencies
 ## SYNTAX
 
 ```
-Convert-Currency [-Value] <Decimal> -From <String> -To <String> [-APIKey <String>]
+Convert-Currency [-Value] <Decimal> [-From <String>] [-To <String>] [-APIKey <String>]
  [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
@@ -43,6 +43,16 @@ Description
 -----------
 Converts 100 USD to EUR and pipes the result to Format-Currency, which picks up the destination currency (EUR) from the pipeline, example result: €92.15
 
+### EXAMPLE 4
+```
+Set-CurrencyConverterDefault -From USD -To GBP
+Convert-Currency -Value 100
+```
+
+Description
+-----------
+Saves USD/GBP as the default currencies to convert between, then converts 100 USD to GBP without needing to specify -From/-To.
+
 ## PARAMETERS
 
 ### -Value
@@ -62,36 +72,7 @@ Accept wildcard characters: False
 
 ### -From
 The currency to convert from.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -To
-The currency to convert to.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -APIKey
-Optional: To use the v6 API, provide your API key, as provided by https://www.exchangerate-api.com/
+Defaults to the value saved with Set-CurrencyConverterDefault -From, if any.
 
 ```yaml
 Type: String
@@ -100,7 +81,39 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: (Get-CurrencyConverterDefaultValue -Name 'From')
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -To
+The currency to convert to.
+Defaults to the value saved with Set-CurrencyConverterDefault -To, if any.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: (Get-CurrencyConverterDefaultValue -Name 'To')
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -APIKey
+Optional: To use the v6 API, provide your API key, as provided by https://www.exchangerate-api.com/
+Defaults to the value saved with Set-CurrencyConverterDefault -APIKey, if any.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: (Get-CurrencyConverterDefaultValue -Name 'APIKey')
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

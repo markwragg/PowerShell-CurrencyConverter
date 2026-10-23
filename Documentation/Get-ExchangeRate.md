@@ -7,13 +7,13 @@ Returns all exchange rates for a specified currency, or a specified exchange rat
 
 ### ToRate (Default)
 ```
-Get-ExchangeRate [-Currency] <String> [-To <String>] [-APIKey <String>] [-ProgressAction <ActionPreference>]
+Get-ExchangeRate [[-Currency] <String>] [-To <String>] [-APIKey <String>] [-ProgressAction <ActionPreference>]
  [<CommonParameters>]
 ```
 
 ### Rates
 ```
-Get-ExchangeRate [-Currency] <String> [-Rates] [-APIKey <String>] [-ProgressAction <ActionPreference>]
+Get-ExchangeRate [[-Currency] <String>] [-Rates] [-APIKey <String>] [-ProgressAction <ActionPreference>]
  [<CommonParameters>]
 ```
 
@@ -59,26 +59,38 @@ Description
 -----------
 Returns the exchange rates for US Dollar and British Pound as PowerShell objects.
 
+### EXAMPLE 5
+```
+Set-CurrencyConverterDefault -From USD -To GBP
+Get-ExchangeRate
+```
+
+Description
+-----------
+Saves USD/GBP as the default currencies, then returns the exchange rate from US Dollar to British Pound without needing to specify -Currency/-To.
+
 ## PARAMETERS
 
 ### -Currency
 The currency to return exchange rates for.
-(Alias: From)
+(Alias: From) Defaults to the value saved with
+Set-CurrencyConverterDefault -From, if any.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases: From
 
-Required: True
+Required: False
 Position: 1
-Default value: None
+Default value: (Get-CurrencyConverterDefaultValue -Name 'From')
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
 ### -To
 The currency to return the exchange rate to (from the currency specified as -Currency or -From).
+Defaults to the value saved with Set-CurrencyConverterDefault -To, if any.
 
 ```yaml
 Type: String
@@ -87,7 +99,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: (Get-CurrencyConverterDefaultValue -Name 'To')
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -109,6 +121,7 @@ Accept wildcard characters: False
 
 ### -APIKey
 Optional: To use the v6 API, provide your API key, as provided by https://www.exchangerate-api.com/
+Defaults to the value saved with Set-CurrencyConverterDefault -APIKey, if any.
 
 ```yaml
 Type: String
@@ -117,7 +130,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: (Get-CurrencyConverterDefaultValue -Name 'APIKey')
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
