@@ -1,6 +1,6 @@
 # Change Log
 
-## !Deploy
+## [1.0.1] - 2026-10-23
 
 * Added `Set-CurrencyConverterDefault` and `Get-CurrencyConverterDefault` cmdlets, so you can save default values for `-From`, `-To` and `-APIKey` (stored under `~/.currencyconverter`) that `Convert-Currency`, `Convert-CryptoCurrency`, `Get-ExchangeRate` and `Get-CryptoExchangeRate` will use automatically when those parameters aren't specified.
 * Fixed `Get-Currency` and `Get-CryptoCurrency` failing in the published module because `SupportedCurrency.csv` and `SupportedCryptoCurrency.csv` were not being copied into the built module during staging.
