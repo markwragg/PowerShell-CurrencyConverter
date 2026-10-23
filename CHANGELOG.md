@@ -1,6 +1,6 @@
 # Change Log
 
-## !Deploy
+## [1.0.4] - 2026-10-23
 
 * Added `Add-CurrencyMember` cmdlet, to add a new property to an object that is a currency conversion of one of its existing properties.
 
