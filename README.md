@@ -39,6 +39,8 @@ Get-Currency                   | Returns the list of supported currency codes al
 Get-CryptoCurrency             | Returns the list of supported crypto currency codes along with their currency name and type (crypto or fiat).
 Get-ExchangeRate               | Returns all exchange rates for a specified currency, or a specified exchange rate between two currencies.
 Get-CryptoExchangeRate         | Returns all exchange rates for a specified crypto currency, or a specified exchange rate between two crypto/non-crypto currencies.
+Set-CurrencyConverterDefault   | Saves default values for `-From`, `-To` and `-APIKey` so you don't need to specify them on every call.
+Get-CurrencyConverterDefault   | Returns the default values currently saved by `Set-CurrencyConverterDefault`.
 
 To perform a simple currency conversion, execute:
 
@@ -292,3 +294,28 @@ Get-ExchangeRate -From GBP -To USD
 ```plaintext
 1.262609
 ```
+
+### Setting defaults
+
+If you regularly convert between the same currencies, or always use the same API key, you can save them as defaults so you don't need to specify them every time:
+
+```powershell
+Set-CurrencyConverterDefault -From USD -To GBP -APIKey yourapikeystringhere
+```
+
+Once saved, `Convert-Currency`, `Convert-CryptoCurrency`, `Get-ExchangeRate` and `Get-CryptoExchangeRate` will use these values automatically whenever `-From`/`-Currency`, `-To` or `-APIKey` aren't explicitly specified:
+
+```powershell
+100 | Convert-Currency
+```
+```plaintext
+79.200
+```
+
+Explicitly specifying a parameter always overrides the saved default:
+
+```powershell
+100 | Convert-Currency -From GBP -To USD
+```
+
+Defaults are saved to `~/.currencyconverter`. To see the currently saved defaults, use `Get-CurrencyConverterDefault`. To remove all saved defaults, use `Set-CurrencyConverterDefault -Reset`.

@@ -5,6 +5,11 @@
         . $PSScriptRoot/../CurrencyConverter/Public/Convert-Currency.ps1
         . $PSScriptRoot/../CurrencyConverter/Public/Convert-CryptoCurrency.ps1
         . $PSScriptRoot/../CurrencyConverter/Private/ConvertFrom-UnixTime.ps1
+        . $PSScriptRoot/../CurrencyConverter/Private/Get-CurrencyConverterDefaultValue.ps1
+
+        # Pretend no defaults are saved, so these tests aren't affected by real preferences saved on the
+        # machine running them (Get-CurrencyConverterDefaultValue would otherwise read $HOME/.currencyconverter).
+        Mock Get-CurrencyConverterDefaultValue { $Value }
     }
 
     Context 'When given a valid currency and value' {

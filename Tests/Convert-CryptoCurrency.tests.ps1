@@ -2,7 +2,12 @@ Describe 'Convert-CryptoCurrency' {
 
     BeforeAll {
         . $PSScriptRoot/../CurrencyConverter/Public/Convert-CryptoCurrency.ps1
-        
+        . $PSScriptRoot/../CurrencyConverter/Private/Get-CurrencyConverterDefaultValue.ps1
+
+        # Pretend no defaults are saved, so these tests aren't affected by real preferences saved on the
+        # machine running them (Get-CurrencyConverterDefaultValue would otherwise read $HOME/.currencyconverter).
+        Mock Get-CurrencyConverterDefaultValue { $Value }
+
         Mock Invoke-RestMethod {
             [pscustomobject]@{
                 data = @{
@@ -165,6 +170,31 @@ Describe 'Convert-CryptoCurrency' {
             Should -Not -Invoke Get-Content
             Should -Invoke Invoke-RestMethod -Exactly 1
             Should -Not -Invoke Out-File -Exactly 1
+            Should -Invoke Write-Error
+        }
+
+        It 'Uses the saved defaults for -From and -To when not specified' {
+
+            Mock Test-Path { $true }
+            Mock Get-CurrencyConverterDefaultValue {
+                switch ($Name) {
+                    'From' { 'BTC' }
+                    'To' { 'ABT' }
+                    default { $Value }
+                }
+            }
+
+            $result = 100 | Convert-CryptoCurrency
+            $result | Should -Be 1598730.0371124100
+        }
+
+        It 'Returns an error if no -From/-To is specified and no default is saved' {
+
+            Mock Write-Error
+
+            $result = 100 | Convert-CryptoCurrency
+            $result | Should -BeNullOrEmpty
+
             Should -Invoke Write-Error
         }
     }

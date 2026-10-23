@@ -3,6 +3,11 @@ Describe 'Get-ExchangeRate' {
     BeforeAll {
         . $PSScriptRoot/../CurrencyConverter/Public/Get-ExchangeRate.ps1
         . $PSScriptRoot/../CurrencyConverter/Private/ConvertFrom-UnixTime.ps1
+        . $PSScriptRoot/../CurrencyConverter/Private/Get-CurrencyConverterDefaultValue.ps1
+
+        # Pretend no defaults are saved, so these tests aren't affected by real preferences saved on the
+        # machine running them (Get-CurrencyConverterDefaultValue would otherwise read $HOME/.currencyconverter).
+        Mock Get-CurrencyConverterDefaultValue { $Value }
 
         Mock Invoke-RestMethod {
             [pscustomobject]@{
@@ -256,6 +261,31 @@ Describe 'Get-ExchangeRate' {
         Should -Not -Invoke Get-Content
         Should -Invoke Invoke-RestMethod -Exactly 1
         Should -Not -Invoke Out-File -Exactly 1
+        Should -Invoke Write-Error
+    }
+
+    It 'Uses the saved default for -Currency/-From and -To when not specified' {
+
+        Mock Test-Path { $true }
+        Mock Get-CurrencyConverterDefaultValue {
+            switch ($Name) {
+                'From' { 'GBP' }
+                'To' { 'USD' }
+                default { $Value }
+            }
+        }
+
+        $result = Get-ExchangeRate
+        $result | Should -Be 1.266552
+    }
+
+    It 'Returns an error if no -Currency/-From is specified and no default is saved' {
+
+        Mock Write-Error
+
+        $result = Get-ExchangeRate
+        $result | Should -BeNullOrEmpty
+
         Should -Invoke Write-Error
     }
 }
