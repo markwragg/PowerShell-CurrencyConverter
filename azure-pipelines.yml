@@ -7,17 +7,10 @@ variables:
 trigger:
   batch: true
 
-  # What branches will trigger a build?
   branches:
     include:
-      # Any Pull Request merging into the main branch
       - main
 
-# Also build Pull Requests targeting main, so tests/analysis run before merge.
-# Steps that publish (wiki, gallery, commit-back) live only in the Build stage,
-# which is individually conditioned to skip when Build.Reason is 'PullRequest',
-# so a PR build only validates the change - it never pushes to the wiki, the
-# PowerShell Gallery, or the repo.
 pr:
   branches:
     include:
@@ -201,10 +194,12 @@ stages:
 
           - pwsh: |
               .\Build\build.ps1 -TaskList 'Deploy'
+            name: Deploy
             displayName: "Deploy"
             condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
             env:
               NugetApiKey: $(NugetApiKey)
+              DeployBranch: $(DeployBranch)
 
           - pwsh: |
               .\Build\build.ps1 -TaskList 'UpdateCoverageBadge'
@@ -220,6 +215,13 @@ stages:
           - pwsh: |
               .\Build\build.ps1 -TaskList 'CreateBuildArtifact'
             displayName: "Create Build Artifact"
+
+          - pwsh: |
+              .\Build\build.ps1 -TaskList 'GitHubRelease'
+            displayName: "Create GitHub Release"
+            condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'), eq(variables['Deploy.DidDeploy'], 'true'))
+            env:
+              GITHUBPAT: $(GitHubPAT)
 
           - task: PublishBuildArtifacts@1
             displayName: "Publish Artifact: PowerShell Module Zipped for offline use"
