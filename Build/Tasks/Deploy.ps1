@@ -70,16 +70,26 @@ Task 'Deploy' -Depends 'Init' {
             Recurse = $false
         }
 
+        # Cleared up front so a stale value from an earlier invocation in the same process can't make a
+        # skipped deploy look like it happened -- deploy.psdeploy.ps1 only sets this when its own gate
+        # (branch/build-system/API key) actually lets the Gallery deploy run.
+        Remove-Item Env:\PSGalleryDeployAttempted -ErrorAction 'SilentlyContinue'
+
         Invoke-PSDeploy @Verbose @Params
 
-        # Update ChangeLog with deployment version and date
-        $ChangeLog = $ChangeLog -replace $DeployPattern, "## [$Version] - $(Get-Date -Format 'yyyy-MM-dd')"
-        Set-Content -Path $ChangeLogPath -Value $ChangeLog
+        if ($env:PSGalleryDeployAttempted -eq 'true') {
+            # Update ChangeLog with deployment version and date
+            $ChangeLog = $ChangeLog -replace $DeployPattern, "## [$Version] - $(Get-Date -Format 'yyyy-MM-dd')"
+            Set-Content -Path $ChangeLogPath -Value $ChangeLog
 
-        # Signal to the pipeline that a real deploy happened, so the GitHubRelease step (which runs as
-        # a later, separate step in the same job) knows to run - it can't infer this safely on its own,
-        # since $Version above is (re)computed on every build regardless of whether this branch runs.
-        Write-Host "##vso[task.setvariable variable=DidDeploy;isOutput=true]true"
+            # Signal to the pipeline that a real deploy happened, so the GitHubRelease step (which runs as
+            # a later, separate step in the same job) knows to run - it can't infer this safely on its own,
+            # since $Version above is (re)computed on every build regardless of whether this branch runs.
+            Write-Host "##vso[task.setvariable variable=DidDeploy;isOutput=true]true"
+        }
+        else {
+            Write-Host "CHANGELOG.md requested a deploy via '## !Deploy', but deploy.psdeploy.ps1's own gate (branch/build-system/API key) skipped it. Leaving CHANGELOG.md unchanged."
+        }
     }
     elseif ($ChangeLog) {
         Write-Host 'CHANGELOG.md did not contain ## !Deploy. Skipping deployment.'

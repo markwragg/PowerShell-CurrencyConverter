@@ -32,6 +32,14 @@ if (
             }
         }
     }
+
+    # Signal back to the psake 'Deploy' task that a Gallery deploy was actually attempted here -- a return
+    # value or local variable can't cross this boundary, since Invoke-PSDeploy dot-sources this file from
+    # inside PSDeploy's own function scope. Deploy.ps1 uses this to decide whether CHANGELOG.md's
+    # '## !Deploy' marker should actually be consumed, rather than assuming it always should be just
+    # because the marker was present -- this gate above (branch/build-system/API key) can still skip
+    # deploying even when it was.
+    $env:PSGalleryDeployAttempted = 'true'
 } else {
     "Skipping deployment: To deploy, ensure that...`n" +
     "`t* You are in a known build system (Current: $ENV:BHBuildSystem)`n" +
