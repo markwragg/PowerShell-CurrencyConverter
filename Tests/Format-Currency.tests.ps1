@@ -1,4 +1,4 @@
-Describe 'Format-Currency' {
+﻿Describe 'Format-Currency' {
 
     BeforeAll {
         . $PSScriptRoot/../CurrencyConverter/Public/Format-Currency.ps1

@@ -22,9 +22,11 @@ Task 'Test' -Depends 'ImportStagingModule' {
 
     $TestResults = Invoke-Pester -Configuration $PesterConfiguration
 
-    # Fail build if any tests fail
-    if ($TestResults.FailedCount -gt 0) {
-        throw "Failed '$($TestResults.FailedCount)' tests, build failed"
+    # Fail build if any tests fail. Checking Result (rather than just FailedCount) also
+    # catches discovery failures (e.g. a test file with a syntax/encoding error), which
+    # Pester reports via FailedContainersCount rather than FailedCount.
+    if ($TestResults.Result -ne 'Passed') {
+        throw "Failed '$($TestResults.FailedCount)' tests and '$($TestResults.FailedContainersCount)' containers, build failed"
     }
 
     # Surface the coverage result as a pipeline output variable so a later stage (which runs in a
