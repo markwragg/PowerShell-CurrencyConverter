@@ -1,6 +1,6 @@
 # Change Log
 
-## !Deploy
+## [1.0.1] - 2026-10-23
 
 * Fixed `Get-Currency` and `Get-CryptoCurrency` failing in the published module because `SupportedCurrency.csv` and `SupportedCryptoCurrency.csv` were not being copied into the built module during staging.
 
