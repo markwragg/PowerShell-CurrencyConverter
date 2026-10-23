@@ -13,7 +13,10 @@ Task 'CombineFunctionsAndStage' -Depends 'Clean' {
 
     # Combine functions into a single .psm1 module
     $combinedModulePath = Join-Path -Path $StagingModulePath -ChildPath "$($env:BHProjectName).psm1"
-    @($publicFunctions + $privateFunctions) | Get-Content | Add-Content -Path $combinedModulePath
+    # Read as UTF-8 and write UTF-8 with BOM: Windows PowerShell 5.1 defaults to the ANSI code page for BOM-less
+    # files, which would corrupt non-ASCII currency symbols when the module is loaded.
+    $combinedContent = @($publicFunctions + $privateFunctions) | Get-Content -Encoding UTF8
+    [System.IO.File]::WriteAllLines($combinedModulePath, [string[]]$combinedContent, (New-Object System.Text.UTF8Encoding($true)))
 
     # Copy other required folders and files if they exist
     $PathsToCopy = @(
