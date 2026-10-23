@@ -1,6 +1,6 @@
 # Change Log
 
-## !Deploy
+## [1.0.0] - 2025-09-25
 
 * Updated `Convert-Currency` and `Convert-CryptoCurrency` to attach the destination currency to their output, so that `Format-Currency` can automatically pick it up via the pipeline without needing to specify `-Currency`.
 
