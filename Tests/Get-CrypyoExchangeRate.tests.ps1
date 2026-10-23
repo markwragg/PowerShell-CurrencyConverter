@@ -2,11 +2,11 @@ Describe 'Get-CryptoExchangeRate' {
 
     BeforeAll {
         . $PSScriptRoot/../CurrencyConverter/Public/Get-CryptoExchangeRate.ps1
-        . $PSScriptRoot/../CurrencyConverter/Private/Get-CurrencyConverterDefaultValue.ps1
+        . $PSScriptRoot/../CurrencyConverter/Private/Get-CurrencyDefaultValue.ps1
 
         # Pretend no defaults are saved, so these tests aren't affected by real preferences saved on the
-        # machine running them (Get-CurrencyConverterDefaultValue would otherwise read $HOME/.currencyconverter).
-        Mock Get-CurrencyConverterDefaultValue { $Value }
+        # machine running them (Get-CurrencyDefaultValue would otherwise read $HOME/.currencyconverter).
+        Mock Get-CurrencyDefaultValue { $Value }
 
         Mock Invoke-RestMethod {
             [pscustomobject]@{
@@ -211,7 +211,7 @@ Describe 'Get-CryptoExchangeRate' {
     It 'Uses the saved default for -Currency/-From and -To when not specified' {
 
         Mock Test-Path { $true }
-        Mock Get-CurrencyConverterDefaultValue {
+        Mock Get-CurrencyDefaultValue {
             switch ($Name) {
                 'From' { 'BTC' }
                 'To' { 'ABT' }

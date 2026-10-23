@@ -61,7 +61,7 @@ Returns the exchange rates for US Dollar and British Pound as PowerShell objects
 
 ### EXAMPLE 5
 ```
-Set-CurrencyConverterDefault -From USD -To GBP
+Set-CurrencyDefault -From USD -To GBP
 Get-ExchangeRate
 ```
 
@@ -74,7 +74,7 @@ Saves USD/GBP as the default currencies, then returns the exchange rate from US 
 ### -Currency
 The currency to return exchange rates for.
 (Alias: From) Defaults to the value saved with
-Set-CurrencyConverterDefault -From, if any.
+Set-CurrencyDefault -From, if any.
 
 ```yaml
 Type: String
@@ -83,14 +83,14 @@ Aliases: From
 
 Required: False
 Position: 1
-Default value: (Get-CurrencyConverterDefaultValue -Name 'From')
+Default value: (Get-CurrencyDefaultValue -Name 'From')
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
 ### -To
 The currency to return the exchange rate to (from the currency specified as -Currency or -From).
-Defaults to the value saved with Set-CurrencyConverterDefault -To, if any.
+Defaults to the value saved with Set-CurrencyDefault -To, if any.
 
 ```yaml
 Type: String
@@ -99,7 +99,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: (Get-CurrencyConverterDefaultValue -Name 'To')
+Default value: (Get-CurrencyDefaultValue -Name 'To')
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
@@ -121,7 +121,7 @@ Accept wildcard characters: False
 
 ### -APIKey
 Optional: To use the v6 API, provide your API key, as provided by https://www.exchangerate-api.com/
-Defaults to the value saved with Set-CurrencyConverterDefault -APIKey, if any.
+Defaults to the value saved with Set-CurrencyDefault -APIKey, if any.
 
 ```yaml
 Type: String
@@ -130,7 +130,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: (Get-CurrencyConverterDefaultValue -Name 'APIKey')
+Default value: (Get-CurrencyDefaultValue -Name 'APIKey')
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

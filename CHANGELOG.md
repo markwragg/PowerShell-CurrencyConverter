@@ -1,5 +1,9 @@
 # Change Log
 
+## !Deploy
+
+* Renamed `Get-CurrencyConverterDefault` and `Set-CurrencyConverterDefault` to `Get-CurrencyDefault` and `Set-CurrencyDefault`.
+
 ## [1.0.1] - 2026-10-23
 
 * Added `Set-CurrencyConverterDefault` and `Get-CurrencyConverterDefault` cmdlets, so you can save default values for `-From`, `-To` and `-APIKey` (stored under `~/.currencyconverter`) that `Convert-Currency`, `Convert-CryptoCurrency`, `Get-ExchangeRate` and `Get-CryptoExchangeRate` will use automatically when those parameters aren't specified.

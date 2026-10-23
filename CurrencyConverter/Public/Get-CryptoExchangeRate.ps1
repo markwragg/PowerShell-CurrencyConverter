@@ -9,11 +9,11 @@ function Get-CryptoExchangeRate {
 
     .PARAMETER Currency
         The currency to return exchange rates for. (Alias: From) Defaults to the value saved with
-        Set-CurrencyConverterDefault -From, if any.
+        Set-CurrencyDefault -From, if any.
 
     .PARAMETER To
         The currency to return the exchange rate to (from the currency specified as -Currency or -From).
-        Defaults to the value saved with Set-CurrencyConverterDefault -To, if any.
+        Defaults to the value saved with Set-CurrencyDefault -To, if any.
 
     .PARAMETER Rates
         Switch: Use to return just the exchange rates for a specified currency.
@@ -53,7 +53,7 @@ function Get-CryptoExchangeRate {
         Returns the exchange rates for Bitcoin and Ether as PowerShell objects.
 
     .EXAMPLE
-        Set-CurrencyConverterDefault -From USD -To BTC
+        Set-CurrencyDefault -From USD -To BTC
         Get-CryptoExchangeRate
 
         Description
@@ -70,12 +70,12 @@ function Get-CryptoExchangeRate {
         [parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0)]
         [alias('From')]
         [string]
-        $Currency = (Get-CurrencyConverterDefaultValue -Name 'From'),
+        $Currency = (Get-CurrencyDefaultValue -Name 'From'),
 
         [validateset('00', '1INCH', 'AAVE', 'ABT', 'ACH', 'ACS', 'ADA', 'AERGO', 'AERO', 'AGLD', 'AIOZ', 'AKT', 'ALCX', 'ALEPH', 'ALGO', 'ALICE', 'AMP', 'ANKR', 'ANT', 'APE', 'API3', 'APT', 'ARB', 'ARKM', 'ARPA', 'ASM', 'AST', 'ATA', 'ATOM', 'AUCTION', 'AUDIO', 'AURORA', 'AVAX', 'AVT', 'AXL', 'AXS', 'BADGER', 'BAL', 'BAND', 'BAT', 'BCH', 'BICO', 'BIGTIME', 'BIT', 'BLUR', 'BLZ', 'BNT', 'BOBA', 'BOND', 'BONK', 'BTC', 'BTRST', 'BUSD', 'C98', 'CBETH', 'CELR', 'CGLD', 'CHZ', 'CLV', 'COMP', 'COTI', 'COVAL', 'CRO', 'CRPT', 'CRV', 'CTSI', 'CTX', 'CVC', 'CVX', 'DAI', 'DAR', 'DASH', 'DDX', 'DESO', 'DEXT', 'DIA', 'DIMO', 'DNT', 'DOGE', 'DOT', 'DREP', 'DRIFT', 'DYP', 'EGLD', 'ELA', 'ENJ', 'ENS', 'EOS', 'ERN', 'ETC', 'ETH', 'EUR', 'EUROC', 'FARM', 'FET', 'FIDA', 'FIL', 'FIS', 'FLOW', 'FLR', 'FORT', 'FORTH', 'FOX', 'FX', 'GAL', 'GALA', 'GBP', 'GFI', 'GHST', 'GLM', 'GMT', 'GNO', 'GNT', 'GODS', 'GRT', 'GST', 'GTC', 'GUSD', 'GYEN', 'HBAR', 'HFT', 'HIGH', 'HNT', 'HONEY', 'HOPR', 'ICP', 'IDEX', 'ILV', 'IMX', 'INDEX', 'INJ', 'INV', 'IOTX', 'JASMY', 'JTO', 'JUP', 'KARRAT', 'KAVA', 'KEEP', 'KNC', 'KRL', 'KSM', 'LCX', 'LDO', 'LINK', 'LIT', 'LOKA', 'LOOM', 'LPT', 'LQTY', 'LRC', 'LSETH', 'LTC', 'MAGIC', 'MANA', 'MASK', 'MATH', 'MATIC', 'MCO2', 'MDT', 'MEDIA', 'METIS', 'MINA', 'MIR', 'MKR', 'MLN', 'MNDE', 'MOBILE', 'MONA', 'MPL', 'MSOL', 'MTL', 'MULTI', 'MUSD', 'MUSE', 'MXC', 'NCT', 'NEAR', 'NEON', 'NEST', 'NKN', 'NMR', 'NU', 'OCEAN', 'OGN', 'OMG', 'OMNI', 'ONDO', 'OOKI', 'OP', 'ORCA', 'ORN', 'OSMO', 'OXT', 'PAX', 'PERP', 'PLA', 'PLU', 'PNG', 'POLS', 'POLY', 'POND', 'POWR', 'PRIME', 'PRO', 'PRQ', 'PUNDIX', 'PYR', 'PYUSD', 'QI', 'QNT', 'QSP', 'QUICK', 'RAD', 'RAI', 'RARE', 'RARI', 'RBN', 'REN', 'RENDER', 'REP', 'REQ', 'RGT', 'RLC', 'RLY', 'RNDR', 'RONIN', 'ROSE', 'RPL', 'SAFE', 'SAND', 'SEAM', 'SEI', 'SHDW', 'SHIB', 'SHPING', 'SKL', 'SNT', 'SNX', 'SOL', 'SPA', 'SPELL', 'STG', 'STORJ', 'STRK', 'STX', 'SUI', 'SUKU', 'SUPER', 'SUSHI', 'SWFTC', 'SYLO', 'SYN', 'T', 'TBTC', 'TIA', 'TIME', 'TNSR', 'TONE', 'TRAC', 'TRB', 'TRIBE', 'TRU', 'TVK', 'UMA', 'UNFI', 'UNI', 'UPI', 'USD', 'USDC', 'USDT', 'UST', 'VARA', 'VELO', 'VET', 'VGX', 'VOXEL', 'VTHO', 'WAMPL', 'WAXL', 'WBTC', 'WCFG', 'WLUNA', 'XCN', 'XLM', 'XMON', 'XRP', 'XTZ', 'XYO', 'YFI', 'YFII', 'ZEC', 'ZEN', 'ZETA', 'ZRX')]
         [parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'ToRate')]
         [string]
-        $To = (Get-CurrencyConverterDefaultValue -Name 'To'),
+        $To = (Get-CurrencyDefaultValue -Name 'To'),
 
         [parameter(ValueFromPipelineByPropertyName, ParameterSetName = 'Rates')]
         [switch]
@@ -86,7 +86,7 @@ function Get-CryptoExchangeRate {
     )
     process {
         if (-not $Currency) {
-            Write-Error "A -Currency (or -From) is required. Specify it explicitly, or save a default with Set-CurrencyConverterDefault -From."
+            Write-Error "A -Currency (or -From) is required. Specify it explicitly, or save a default with Set-CurrencyDefault -From."
             return
         }
 

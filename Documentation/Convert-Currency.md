@@ -45,7 +45,7 @@ Converts 100 USD to EUR and pipes the result to Format-Currency, which picks up 
 
 ### EXAMPLE 4
 ```
-Set-CurrencyConverterDefault -From USD -To GBP
+Set-CurrencyDefault -From USD -To GBP
 Convert-Currency -Value 100
 ```
 
@@ -72,7 +72,7 @@ Accept wildcard characters: False
 
 ### -From
 The currency to convert from.
-Defaults to the value saved with Set-CurrencyConverterDefault -From, if any.
+Defaults to the value saved with Set-CurrencyDefault -From, if any.
 
 ```yaml
 Type: String
@@ -81,14 +81,14 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: (Get-CurrencyConverterDefaultValue -Name 'From')
+Default value: (Get-CurrencyDefaultValue -Name 'From')
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -To
 The currency to convert to.
-Defaults to the value saved with Set-CurrencyConverterDefault -To, if any.
+Defaults to the value saved with Set-CurrencyDefault -To, if any.
 
 ```yaml
 Type: String
@@ -97,14 +97,14 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: (Get-CurrencyConverterDefaultValue -Name 'To')
+Default value: (Get-CurrencyDefaultValue -Name 'To')
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -APIKey
 Optional: To use the v6 API, provide your API key, as provided by https://www.exchangerate-api.com/
-Defaults to the value saved with Set-CurrencyConverterDefault -APIKey, if any.
+Defaults to the value saved with Set-CurrencyDefault -APIKey, if any.
 
 ```yaml
 Type: String
@@ -113,7 +113,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: (Get-CurrencyConverterDefaultValue -Name 'APIKey')
+Default value: (Get-CurrencyDefaultValue -Name 'APIKey')
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

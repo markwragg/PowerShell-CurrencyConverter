@@ -45,7 +45,7 @@ Converts 1 BTC to ETH and pipes the result to Format-Currency, which picks up th
 
 ### EXAMPLE 4
 ```
-Set-CurrencyConverterDefault -From BTC -To ETH
+Set-CurrencyDefault -From BTC -To ETH
 Convert-CryptoCurrency -Value 1
 ```
 
@@ -72,7 +72,7 @@ Accept wildcard characters: False
 
 ### -From
 The currency to convert from.
-Defaults to the value saved with Set-CurrencyConverterDefault -From, if any.
+Defaults to the value saved with Set-CurrencyDefault -From, if any.
 
 ```yaml
 Type: String
@@ -81,14 +81,14 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: (Get-CurrencyConverterDefaultValue -Name 'From')
+Default value: (Get-CurrencyDefaultValue -Name 'From')
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -To
 The currency to convert to.
-Defaults to the value saved with Set-CurrencyConverterDefault -To, if any.
+Defaults to the value saved with Set-CurrencyDefault -To, if any.
 
 ```yaml
 Type: String
@@ -97,7 +97,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: (Get-CurrencyConverterDefaultValue -Name 'To')
+Default value: (Get-CurrencyDefaultValue -Name 'To')
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

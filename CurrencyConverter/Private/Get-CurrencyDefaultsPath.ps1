@@ -1,7 +1,7 @@
-function Get-CurrencyConverterDefaultsPath {
+function Get-CurrencyDefaultsPath {
     <#
     .SYNOPSIS
-        Returns the path to the file used to store default preferences (set via Set-CurrencyConverterDefault),
+        Returns the path to the file used to store default preferences (set via Set-CurrencyDefault),
         creating its directory if it doesn't already exist.
     #>
     [CmdletBinding()]

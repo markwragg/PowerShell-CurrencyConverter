@@ -1,4 +1,4 @@
-# Set-CurrencyConverterDefault
+# Set-CurrencyDefault
 
 ## SYNOPSIS
 Sets default preferences used automatically by other cmdlets in this module, such as the currency
@@ -7,12 +7,12 @@ to convert From, To, and your APIKey.
 ## SYNTAX
 
 ```
-Set-CurrencyConverterDefault [[-From] <String>] [[-To] <String>] [[-APIKey] <String>] [-Reset]
+Set-CurrencyDefault [[-From] <String>] [[-To] <String>] [[-APIKey] <String>] [-Reset]
  [[-DefaultsPath] <String>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Set-CurrencyConverterDefault cmdlet saves default preferences that are then used automatically by
+The Set-CurrencyDefault cmdlet saves default preferences that are then used automatically by
 other cmdlets in this module, so you don't need to specify the same parameters every time.
 Explicitly
 specifying a parameter on a cmdlet (e.g.
@@ -34,7 +34,7 @@ Supported preferences:
 
 ### EXAMPLE 1
 ```
-Set-CurrencyConverterDefault -From USD -To GBP
+Set-CurrencyDefault -From USD -To GBP
 ```
 
 Description
@@ -44,7 +44,7 @@ and GBP by default, so they can be called without specifying -From/-To.
 
 ### EXAMPLE 2
 ```
-Set-CurrencyConverterDefault -APIKey 12345abcdef
+Set-CurrencyDefault -APIKey 12345abcdef
 ```
 
 Description
@@ -53,7 +53,7 @@ Makes Convert-Currency and Get-ExchangeRate use the specified API key by default
 
 ### EXAMPLE 3
 ```
-Set-CurrencyConverterDefault -Reset
+Set-CurrencyDefault -Reset
 ```
 
 Description
@@ -136,7 +136,7 @@ Aliases:
 
 Required: False
 Position: 4
-Default value: (Get-CurrencyConverterDefaultsPath)
+Default value: (Get-CurrencyDefaultsPath)
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

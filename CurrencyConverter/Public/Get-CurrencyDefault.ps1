@@ -1,16 +1,16 @@
-function Get-CurrencyConverterDefault {
+function Get-CurrencyDefault {
     <#
     .SYNOPSIS
-        Gets the default preferences saved by Set-CurrencyConverterDefault.
+        Gets the default preferences saved by Set-CurrencyDefault.
 
     .DESCRIPTION
-        The Get-CurrencyConverterDefault cmdlet returns the default preferences currently saved by
-        Set-CurrencyConverterDefault, such as the default -From/-To currency or -APIKey. Preferences that
+        The Get-CurrencyDefault cmdlet returns the default preferences currently saved by
+        Set-CurrencyDefault, such as the default -From/-To currency or -APIKey. Preferences that
         haven't been saved are omitted -- each cmdlet that honours a preference falls back to its own
         built-in behavior when one isn't saved here.
 
     .EXAMPLE
-        Get-CurrencyConverterDefault
+        Get-CurrencyDefault
 
         Description
         -----------
@@ -22,7 +22,7 @@ function Get-CurrencyConverterDefault {
         # Path to the file used to store default preferences. By default this is in the user's per-user
         # data directory (~/.currencyconverter).
         [string]
-        $DefaultsPath = (Get-CurrencyConverterDefaultsPath)
+        $DefaultsPath = (Get-CurrencyDefaultsPath)
     )
 
     if (Test-Path $DefaultsPath) {

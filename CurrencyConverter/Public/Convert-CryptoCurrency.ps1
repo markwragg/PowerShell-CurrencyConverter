@@ -11,10 +11,10 @@
         The amount you want to convert between currencies.
 
     .PARAMETER From
-        The currency to convert from. Defaults to the value saved with Set-CurrencyConverterDefault -From, if any.
+        The currency to convert from. Defaults to the value saved with Set-CurrencyDefault -From, if any.
 
     .PARAMETER To
-        The currency to convert to. Defaults to the value saved with Set-CurrencyConverterDefault -To, if any.
+        The currency to convert to. Defaults to the value saved with Set-CurrencyDefault -To, if any.
 
     .PARAMETER CacheSeconds
         Number of seconds to cache the result. Default: 0.
@@ -44,7 +44,7 @@
         Converts 1 BTC to ETH and pipes the result to Format-Currency, which picks up the destination currency (ETH) from the pipeline, example result: Ξ21.4961307
 
     .EXAMPLE
-        Set-CurrencyConverterDefault -From BTC -To ETH
+        Set-CurrencyDefault -From BTC -To ETH
         Convert-CryptoCurrency -Value 1
 
         Description
@@ -60,11 +60,11 @@
 
         [validateset('00', '1INCH', 'AAVE', 'ABT', 'ACH', 'ACS', 'ADA', 'AERGO', 'AERO', 'AGLD', 'AIOZ', 'AKT', 'ALCX', 'ALEPH', 'ALGO', 'ALICE', 'AMP', 'ANKR', 'ANT', 'APE', 'API3', 'APT', 'ARB', 'ARKM', 'ARPA', 'ASM', 'AST', 'ATA', 'ATOM', 'AUCTION', 'AUDIO', 'AURORA', 'AVAX', 'AVT', 'AXL', 'AXS', 'BADGER', 'BAL', 'BAND', 'BAT', 'BCH', 'BICO', 'BIGTIME', 'BIT', 'BLUR', 'BLZ', 'BNT', 'BOBA', 'BOND', 'BONK', 'BTC', 'BTRST', 'BUSD', 'C98', 'CBETH', 'CELR', 'CGLD', 'CHZ', 'CLV', 'COMP', 'COTI', 'COVAL', 'CRO', 'CRPT', 'CRV', 'CTSI', 'CTX', 'CVC', 'CVX', 'DAI', 'DAR', 'DASH', 'DDX', 'DESO', 'DEXT', 'DIA', 'DIMO', 'DNT', 'DOGE', 'DOT', 'DREP', 'DRIFT', 'DYP', 'EGLD', 'ELA', 'ENJ', 'ENS', 'EOS', 'ERN', 'ETC', 'ETH', 'EUR', 'EUROC', 'FARM', 'FET', 'FIDA', 'FIL', 'FIS', 'FLOW', 'FLR', 'FORT', 'FORTH', 'FOX', 'FX', 'GAL', 'GALA', 'GBP', 'GFI', 'GHST', 'GLM', 'GMT', 'GNO', 'GNT', 'GODS', 'GRT', 'GST', 'GTC', 'GUSD', 'GYEN', 'HBAR', 'HFT', 'HIGH', 'HNT', 'HONEY', 'HOPR', 'ICP', 'IDEX', 'ILV', 'IMX', 'INDEX', 'INJ', 'INV', 'IOTX', 'JASMY', 'JTO', 'JUP', 'KARRAT', 'KAVA', 'KEEP', 'KNC', 'KRL', 'KSM', 'LCX', 'LDO', 'LINK', 'LIT', 'LOKA', 'LOOM', 'LPT', 'LQTY', 'LRC', 'LSETH', 'LTC', 'MAGIC', 'MANA', 'MASK', 'MATH', 'MATIC', 'MCO2', 'MDT', 'MEDIA', 'METIS', 'MINA', 'MIR', 'MKR', 'MLN', 'MNDE', 'MOBILE', 'MONA', 'MPL', 'MSOL', 'MTL', 'MULTI', 'MUSD', 'MUSE', 'MXC', 'NCT', 'NEAR', 'NEON', 'NEST', 'NKN', 'NMR', 'NU', 'OCEAN', 'OGN', 'OMG', 'OMNI', 'ONDO', 'OOKI', 'OP', 'ORCA', 'ORN', 'OSMO', 'OXT', 'PAX', 'PERP', 'PLA', 'PLU', 'PNG', 'POLS', 'POLY', 'POND', 'POWR', 'PRIME', 'PRO', 'PRQ', 'PUNDIX', 'PYR', 'PYUSD', 'QI', 'QNT', 'QSP', 'QUICK', 'RAD', 'RAI', 'RARE', 'RARI', 'RBN', 'REN', 'RENDER', 'REP', 'REQ', 'RGT', 'RLC', 'RLY', 'RNDR', 'RONIN', 'ROSE', 'RPL', 'SAFE', 'SAND', 'SEAM', 'SEI', 'SHDW', 'SHIB', 'SHPING', 'SKL', 'SNT', 'SNX', 'SOL', 'SPA', 'SPELL', 'STG', 'STORJ', 'STRK', 'STX', 'SUI', 'SUKU', 'SUPER', 'SUSHI', 'SWFTC', 'SYLO', 'SYN', 'T', 'TBTC', 'TIA', 'TIME', 'TNSR', 'TONE', 'TRAC', 'TRB', 'TRIBE', 'TRU', 'TVK', 'UMA', 'UNFI', 'UNI', 'UPI', 'USD', 'USDC', 'USDT', 'UST', 'VARA', 'VELO', 'VET', 'VGX', 'VOXEL', 'VTHO', 'WAMPL', 'WAXL', 'WBTC', 'WCFG', 'WLUNA', 'XCN', 'XLM', 'XMON', 'XRP', 'XTZ', 'XYO', 'YFI', 'YFII', 'ZEC', 'ZEN', 'ZETA', 'ZRX')]
         [string]
-        $From = (Get-CurrencyConverterDefaultValue -Name 'From'),
+        $From = (Get-CurrencyDefaultValue -Name 'From'),
 
         [validateset('00', '1INCH', 'AAVE', 'ABT', 'ACH', 'ACS', 'ADA', 'AERGO', 'AERO', 'AGLD', 'AIOZ', 'AKT', 'ALCX', 'ALEPH', 'ALGO', 'ALICE', 'AMP', 'ANKR', 'ANT', 'APE', 'API3', 'APT', 'ARB', 'ARKM', 'ARPA', 'ASM', 'AST', 'ATA', 'ATOM', 'AUCTION', 'AUDIO', 'AURORA', 'AVAX', 'AVT', 'AXL', 'AXS', 'BADGER', 'BAL', 'BAND', 'BAT', 'BCH', 'BICO', 'BIGTIME', 'BIT', 'BLUR', 'BLZ', 'BNT', 'BOBA', 'BOND', 'BONK', 'BTC', 'BTRST', 'BUSD', 'C98', 'CBETH', 'CELR', 'CGLD', 'CHZ', 'CLV', 'COMP', 'COTI', 'COVAL', 'CRO', 'CRPT', 'CRV', 'CTSI', 'CTX', 'CVC', 'CVX', 'DAI', 'DAR', 'DASH', 'DDX', 'DESO', 'DEXT', 'DIA', 'DIMO', 'DNT', 'DOGE', 'DOT', 'DREP', 'DRIFT', 'DYP', 'EGLD', 'ELA', 'ENJ', 'ENS', 'EOS', 'ERN', 'ETC', 'ETH', 'EUR', 'EUROC', 'FARM', 'FET', 'FIDA', 'FIL', 'FIS', 'FLOW', 'FLR', 'FORT', 'FORTH', 'FOX', 'FX', 'GAL', 'GALA', 'GBP', 'GFI', 'GHST', 'GLM', 'GMT', 'GNO', 'GNT', 'GODS', 'GRT', 'GST', 'GTC', 'GUSD', 'GYEN', 'HBAR', 'HFT', 'HIGH', 'HNT', 'HONEY', 'HOPR', 'ICP', 'IDEX', 'ILV', 'IMX', 'INDEX', 'INJ', 'INV', 'IOTX', 'JASMY', 'JTO', 'JUP', 'KARRAT', 'KAVA', 'KEEP', 'KNC', 'KRL', 'KSM', 'LCX', 'LDO', 'LINK', 'LIT', 'LOKA', 'LOOM', 'LPT', 'LQTY', 'LRC', 'LSETH', 'LTC', 'MAGIC', 'MANA', 'MASK', 'MATH', 'MATIC', 'MCO2', 'MDT', 'MEDIA', 'METIS', 'MINA', 'MIR', 'MKR', 'MLN', 'MNDE', 'MOBILE', 'MONA', 'MPL', 'MSOL', 'MTL', 'MULTI', 'MUSD', 'MUSE', 'MXC', 'NCT', 'NEAR', 'NEON', 'NEST', 'NKN', 'NMR', 'NU', 'OCEAN', 'OGN', 'OMG', 'OMNI', 'ONDO', 'OOKI', 'OP', 'ORCA', 'ORN', 'OSMO', 'OXT', 'PAX', 'PERP', 'PLA', 'PLU', 'PNG', 'POLS', 'POLY', 'POND', 'POWR', 'PRIME', 'PRO', 'PRQ', 'PUNDIX', 'PYR', 'PYUSD', 'QI', 'QNT', 'QSP', 'QUICK', 'RAD', 'RAI', 'RARE', 'RARI', 'RBN', 'REN', 'RENDER', 'REP', 'REQ', 'RGT', 'RLC', 'RLY', 'RNDR', 'RONIN', 'ROSE', 'RPL', 'SAFE', 'SAND', 'SEAM', 'SEI', 'SHDW', 'SHIB', 'SHPING', 'SKL', 'SNT', 'SNX', 'SOL', 'SPA', 'SPELL', 'STG', 'STORJ', 'STRK', 'STX', 'SUI', 'SUKU', 'SUPER', 'SUSHI', 'SWFTC', 'SYLO', 'SYN', 'T', 'TBTC', 'TIA', 'TIME', 'TNSR', 'TONE', 'TRAC', 'TRB', 'TRIBE', 'TRU', 'TVK', 'UMA', 'UNFI', 'UNI', 'UPI', 'USD', 'USDC', 'USDT', 'UST', 'VARA', 'VELO', 'VET', 'VGX', 'VOXEL', 'VTHO', 'WAMPL', 'WAXL', 'WBTC', 'WCFG', 'WLUNA', 'XCN', 'XLM', 'XMON', 'XRP', 'XTZ', 'XYO', 'YFI', 'YFII', 'ZEC', 'ZEN', 'ZETA', 'ZRX')]
         [string]
-        $To = (Get-CurrencyConverterDefaultValue -Name 'To'),
+        $To = (Get-CurrencyDefaultValue -Name 'To'),
 
         [validaterange(0, [int]::MaxValue)]
         $CacheSeconds = 0
@@ -72,7 +72,7 @@
 
     process {
         if (-not $From -or -not $To) {
-            Write-Error "A -From and -To currency are required. Specify them explicitly, or save defaults with Set-CurrencyConverterDefault."
+            Write-Error "A -From and -To currency are required. Specify them explicitly, or save defaults with Set-CurrencyDefault."
             return
         }
 

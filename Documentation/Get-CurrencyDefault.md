@@ -1,18 +1,18 @@
-# Get-CurrencyConverterDefault
+# Get-CurrencyDefault
 
 ## SYNOPSIS
-Gets the default preferences saved by Set-CurrencyConverterDefault.
+Gets the default preferences saved by Set-CurrencyDefault.
 
 ## SYNTAX
 
 ```
-Get-CurrencyConverterDefault [[-DefaultsPath] <String>] [-ProgressAction <ActionPreference>]
+Get-CurrencyDefault [[-DefaultsPath] <String>] [-ProgressAction <ActionPreference>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Get-CurrencyConverterDefault cmdlet returns the default preferences currently saved by
-Set-CurrencyConverterDefault, such as the default -From/-To currency or -APIKey.
+The Get-CurrencyDefault cmdlet returns the default preferences currently saved by
+Set-CurrencyDefault, such as the default -From/-To currency or -APIKey.
 Preferences that
 haven't been saved are omitted -- each cmdlet that honours a preference falls back to its own
 built-in behavior when one isn't saved here.
@@ -21,7 +21,7 @@ built-in behavior when one isn't saved here.
 
 ### EXAMPLE 1
 ```
-Get-CurrencyConverterDefault
+Get-CurrencyDefault
 ```
 
 Description
@@ -42,7 +42,7 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: (Get-CurrencyConverterDefaultsPath)
+Default value: (Get-CurrencyDefaultsPath)
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

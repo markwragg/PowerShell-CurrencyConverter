@@ -1,7 +1,7 @@
-function Get-CurrencyConverterDefaultValue {
+function Get-CurrencyDefaultValue {
     <#
     .SYNOPSIS
-        Returns the saved default for the named preference (set via Set-CurrencyConverterDefault), or the
+        Returns the saved default for the named preference (set via Set-CurrencyDefault), or the
         given fallback value if no default has been saved for it.
     #>
     [CmdletBinding()]
@@ -15,7 +15,7 @@ function Get-CurrencyConverterDefaultValue {
         $Value
     )
 
-    $Stored = (Get-CurrencyConverterDefault).$Name
+    $Stored = (Get-CurrencyDefault).$Name
 
     if ($null -ne $Stored) { $Stored } else { $Value }
 }

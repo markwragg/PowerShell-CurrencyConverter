@@ -39,8 +39,8 @@ Get-Currency                   | Returns the list of supported currency codes al
 Get-CryptoCurrency             | Returns the list of supported crypto currency codes along with their currency name and type (crypto or fiat).
 Get-ExchangeRate               | Returns all exchange rates for a specified currency, or a specified exchange rate between two currencies.
 Get-CryptoExchangeRate         | Returns all exchange rates for a specified crypto currency, or a specified exchange rate between two crypto/non-crypto currencies.
-Set-CurrencyConverterDefault   | Saves default values for `-From`, `-To` and `-APIKey` so you don't need to specify them on every call.
-Get-CurrencyConverterDefault   | Returns the default values currently saved by `Set-CurrencyConverterDefault`.
+Set-CurrencyDefault   | Saves default values for `-From`, `-To` and `-APIKey` so you don't need to specify them on every call.
+Get-CurrencyDefault   | Returns the default values currently saved by `Set-CurrencyDefault`.
 
 To perform a simple currency conversion, execute:
 
@@ -300,7 +300,7 @@ Get-ExchangeRate -From GBP -To USD
 If you regularly convert between the same currencies, or always use the same API key, you can save them as defaults so you don't need to specify them every time:
 
 ```powershell
-Set-CurrencyConverterDefault -From USD -To GBP -APIKey yourapikeystringhere
+Set-CurrencyDefault -From USD -To GBP -APIKey yourapikeystringhere
 ```
 
 Once saved, `Convert-Currency`, `Convert-CryptoCurrency`, `Get-ExchangeRate` and `Get-CryptoExchangeRate` will use these values automatically whenever `-From`/`-Currency`, `-To` or `-APIKey` aren't explicitly specified:
@@ -318,4 +318,4 @@ Explicitly specifying a parameter always overrides the saved default:
 100 | Convert-Currency -From GBP -To USD
 ```
 
-Defaults are saved to `~/.currencyconverter`. To see the currently saved defaults, use `Get-CurrencyConverterDefault`. To remove all saved defaults, use `Set-CurrencyConverterDefault -Reset`.
+Defaults are saved to `~/.currencyconverter`. To see the currently saved defaults, use `Get-CurrencyDefault`. To remove all saved defaults, use `Set-CurrencyDefault -Reset`.

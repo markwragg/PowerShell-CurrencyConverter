@@ -1,11 +1,11 @@
-function Set-CurrencyConverterDefault {
+function Set-CurrencyDefault {
     <#
     .SYNOPSIS
         Sets default preferences used automatically by other cmdlets in this module, such as the currency
         to convert From, To, and your APIKey.
 
     .DESCRIPTION
-        The Set-CurrencyConverterDefault cmdlet saves default preferences that are then used automatically by
+        The Set-CurrencyDefault cmdlet saves default preferences that are then used automatically by
         other cmdlets in this module, so you don't need to specify the same parameters every time. Explicitly
         specifying a parameter on a cmdlet (e.g. Convert-Currency -From EUR) always overrides the saved default.
 
@@ -21,7 +21,7 @@ function Set-CurrencyConverterDefault {
         -APIKey  Default for -APIKey on Convert-Currency and Get-ExchangeRate.
 
     .EXAMPLE
-        Set-CurrencyConverterDefault -From USD -To GBP
+        Set-CurrencyDefault -From USD -To GBP
 
         Description
         -----------
@@ -29,14 +29,14 @@ function Set-CurrencyConverterDefault {
         and GBP by default, so they can be called without specifying -From/-To.
 
     .EXAMPLE
-        Set-CurrencyConverterDefault -APIKey 12345abcdef
+        Set-CurrencyDefault -APIKey 12345abcdef
 
         Description
         -----------
         Makes Convert-Currency and Get-ExchangeRate use the specified API key by default.
 
     .EXAMPLE
-        Set-CurrencyConverterDefault -Reset
+        Set-CurrencyDefault -Reset
 
         Description
         -----------
@@ -66,7 +66,7 @@ function Set-CurrencyConverterDefault {
         # Path to the file used to store default preferences. By default this is in the user's per-user
         # data directory (~/.currencyconverter).
         [string]
-        $DefaultsPath = (Get-CurrencyConverterDefaultsPath)
+        $DefaultsPath = (Get-CurrencyDefaultsPath)
     )
 
     if ($Reset) {
@@ -76,7 +76,7 @@ function Set-CurrencyConverterDefault {
         return [pscustomobject]@{}
     }
 
-    $Current = Get-CurrencyConverterDefault -DefaultsPath $DefaultsPath
+    $Current = Get-CurrencyDefault -DefaultsPath $DefaultsPath
 
     if ($PSBoundParameters.ContainsKey('From')) { $Current | Add-Member -NotePropertyName From -NotePropertyValue $From -Force }
     if ($PSBoundParameters.ContainsKey('To')) { $Current | Add-Member -NotePropertyName To -NotePropertyValue $To -Force }
