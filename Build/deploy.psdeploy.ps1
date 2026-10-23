@@ -12,9 +12,9 @@ else {
 
 # The branch that's allowed to publish to the Gallery is a deploy gate, not something to infer (e.g. from
 # the repo's default branch) -- it's set explicitly via the pipeline's DeployBranch variable (passed through
-# as an env var on the Deploy step in azure-pipelines.yml), defaulting to 'master' for local/manual runs
+# as an env var on the Deploy step in azure-pipelines.yml), defaulting to 'main' for local/manual runs
 # where that env var isn't set.
-$DeployBranch = if ($env:DeployBranch) { $env:DeployBranch } else { 'master' }
+$DeployBranch = if ($env:DeployBranch) { $env:DeployBranch } else { 'main' }
 
 # Publish to gallery with a few restrictions
 if (

@@ -1,6 +1,9 @@
 variables:
 - group: powershell-gallery
 
+- name: DeployBranch
+  value: main
+
 trigger:
   batch: true
 
