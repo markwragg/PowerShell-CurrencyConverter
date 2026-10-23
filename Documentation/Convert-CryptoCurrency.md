@@ -7,7 +7,7 @@ Converts a decimal value between specified crypto and/or non-crypto currencies
 
 ```
 Convert-CryptoCurrency [-Value] <Decimal> -From <String> -To <String> [-CacheSeconds <Object>]
- [<CommonParameters>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -33,6 +33,15 @@ Convert-CryptoCurrency -Value 100 -From ETH -To GBP
 Description
 -----------
 Converts the value 100 from ETH (Ether) to GBP (British Pound), example result: 245122.500
+
+### EXAMPLE 3
+```
+Convert-CryptoCurrency -Value 1 -From BTC -To ETH | Format-Currency
+```
+
+Description
+-----------
+Converts 1 BTC to ETH and pipes the result to Format-Currency, which picks up the destination currency (ETH) from the pipeline, example result: Ξ21.4961307
 
 ## PARAMETERS
 
@@ -93,6 +102,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{Fill ProgressAction Description}}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

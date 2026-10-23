@@ -7,12 +7,12 @@ Returns the list of supported crypto currency codes along with their currency na
 
 ### Code (Default)
 ```
-Get-CryptoCurrency [[-Currency] <String>] [<CommonParameters>]
+Get-CryptoCurrency [[-Currency] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### Name
 ```
-Get-CryptoCurrency [-Name <String>] [<CommonParameters>]
+Get-CryptoCurrency [-Name <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -81,6 +81,21 @@ The currency name to return.
 Type: String
 Parameter Sets: Name
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{Fill ProgressAction Description}}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

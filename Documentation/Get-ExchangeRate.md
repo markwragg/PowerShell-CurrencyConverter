@@ -7,12 +7,14 @@ Returns all exchange rates for a specified currency, or a specified exchange rat
 
 ### ToRate (Default)
 ```
-Get-ExchangeRate [-Currency] <String> [-To <String>] [-APIKey <String>] [<CommonParameters>]
+Get-ExchangeRate [-Currency] <String> [-To <String>] [-APIKey <String>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ### Rates
 ```
-Get-ExchangeRate [-Currency] <String> [-Rates] [-APIKey <String>] [<CommonParameters>]
+Get-ExchangeRate [-Currency] <String> [-Rates] [-APIKey <String>] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -112,6 +114,21 @@ Optional: To use the v6 API, provide your API key, as provided by https://www.ex
 Type: String
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{Fill ProgressAction Description}}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named
