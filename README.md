@@ -5,7 +5,9 @@
 [![PowerShell Gallery Version](https://img.shields.io/powershellgallery/v/currencyconverter?label=PS%20Gallery)](https://www.powershellgallery.com/packages/currencyconverter)
 [![PowerShell Gallery Downloads](https://img.shields.io/powershellgallery/dt/currencyconverter?color=D3D3D3)](https://www.powershellgallery.com/packages/currencyconverter)
 
-A PowerShell wrapper for the open currency conversion APIs provided by [ExchangeRate-API](https://www.exchangerate-api.com/) and (for Crypto currencies) [CoinBase](https://api.coinbase.com/v2).
+A PowerShell module to provide currency conversion tools by wrapping the currency conversion APIs provided by [ExchangeRate-API](https://www.exchangerate-api.com/) and (for Crypto currencies) [CoinBase](https://api.coinbase.com/v2).
+
+![PowerShell CurrencyConverter](/Media/powershell-currencyconverter.jpeg)
 
 > [!IMPORTANT]
 > No registration / API keys are required to use these APIs, but the currency rates from ExchangeRate-API are refreshed once a day and rate limiting may occur if you make too many requests.
