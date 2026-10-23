@@ -54,6 +54,9 @@ Or for a crypto currency:
 ```powershell
 Convert-CryptoCurrency -Value 100 -From BTC -To GBP
 ```
+```plaintext
+6107769.00
+```
 
 To use the ExhangeRate-API registered API, provide your key via the `-APIKey` parameter:
 
@@ -70,12 +73,28 @@ The value can alternatively be provided via the pipeline:
 100 | Convert-Currency -From EUR -To CAD
 100 | Convert-CryptoCurrency -From BTC -To GBP
 ```
+```plaintext
+157.186500
+```
+```plaintext
+6107769.00
+```
 
 This means that you can pipe multiple values in to perform a series of conversions:
 
 ```powershell
 100,200,250 | Convert-Currency -From USD -To JPY
 100,200,250 | Convert-CryptoCurrency -From BTC -To GBP
+```
+```plaintext
+15692.063700
+31384.127400
+39230.159250
+```
+```plaintext
+6107769.00
+12215538.00
+15269422.50
 ```
 
 If you would like to return the result as a formatted string including the currency symbol and rounded to a number of decimal places, execute:

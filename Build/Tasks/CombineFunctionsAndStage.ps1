@@ -39,4 +39,8 @@ Task 'CombineFunctionsAndStage' -Depends 'Clean' {
     # in the manifest references them by filename relative to the module root, which the combined psm1 also
     # resolves $PSScriptRoot to, so they need to sit alongside it in Staging the same way they do in source.
     Get-ChildItem -Path $env:BHModulePath -Filter '*.ps1xml' -File | Copy-Item -Destination $StagingModulePath
+
+    # Copy data files (e.g. SupportedCurrency.csv) referenced via $PSScriptRoot by the combined psm1, so they
+    # sit alongside it in Staging the same way they do next to the source functions in Public/Private.
+    Get-ChildItem -Path $env:BHModulePath -Filter '*.csv' -File -Recurse | Copy-Item -Destination $StagingModulePath
 }
