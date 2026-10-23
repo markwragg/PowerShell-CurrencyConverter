@@ -16,7 +16,8 @@ A PowerShell module to provide currency conversion tools by wrapping the currenc
 >
 > If you have registered at ExchangeRate-API, you can provide your API key via the `-APIKey` parameter of the `Convert-Currency` and `Get-ExchangeRate` cmdlets and this will invoke the v6 API.
 
-![PowerShell CurrencyConverter example usage](/Media/example-usage.png)
+![PowerShell CurrencyConverter example usage](/Media/add-currencymember-example.png)
+_Above: `Add-CurrencyMember` example, which allows you to add an additional currency property to an existing PowerShell object collection_
 
 ## Installation
 
