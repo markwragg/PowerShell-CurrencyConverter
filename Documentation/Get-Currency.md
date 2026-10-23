@@ -7,17 +7,17 @@ Returns the list of supported currency codes along with their currency name and 
 
 ### Code (Default)
 ```
-Get-Currency [[-Currency] <String>] [<CommonParameters>]
+Get-Currency [[-Currency] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### Name
 ```
-Get-Currency [-Name <String>] [<CommonParameters>]
+Get-Currency [-Name <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### Country
 ```
-Get-Currency [-Country <String>] [<CommonParameters>]
+Get-Currency [-Country <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -110,6 +110,21 @@ The country to return.
 Type: String
 Parameter Sets: Country
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{Fill ProgressAction Description}}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named

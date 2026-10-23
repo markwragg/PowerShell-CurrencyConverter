@@ -7,12 +7,14 @@ Returns all crypto exchange rates for a specified currency, or a specified excha
 
 ### ToRate (Default)
 ```
-Get-CryptoExchangeRate [-Currency] <String> [-To <String>] [-CacheSeconds <Object>] [<CommonParameters>]
+Get-CryptoExchangeRate [-Currency] <String> [-To <String>] [-CacheSeconds <Object>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### Rates
 ```
-Get-CryptoExchangeRate [-Currency] <String> [-Rates] [-CacheSeconds <Object>] [<CommonParameters>]
+Get-CryptoExchangeRate [-Currency] <String> [-Rates] [-CacheSeconds <Object>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -117,6 +119,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: 0
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{Fill ProgressAction Description}}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

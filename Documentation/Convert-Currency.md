@@ -6,7 +6,8 @@ Converts a decimal value between specified currencies
 ## SYNTAX
 
 ```
-Convert-Currency [-Value] <Decimal> -From <String> -To <String> [-APIKey <String>] [<CommonParameters>]
+Convert-Currency [-Value] <Decimal> -From <String> -To <String> [-APIKey <String>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,6 +33,15 @@ Convert-Currency -Value 100 -From AUD -To EUR
 Description
 -----------
 Converts the value 100 from USD (US Dollar) to AUD (Australian Dollar), example result: 154.211800
+
+### EXAMPLE 3
+```
+Convert-Currency -Value 100 -From USD -To EUR | Format-Currency
+```
+
+Description
+-----------
+Converts 100 USD to EUR and pipes the result to Format-Currency, which picks up the destination currency (EUR) from the pipeline, example result: €92.15
 
 ## PARAMETERS
 
@@ -87,6 +97,21 @@ Optional: To use the v6 API, provide your API key, as provided by https://www.ex
 Type: String
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ProgressAction
+{{Fill ProgressAction Description}}
+
+```yaml
+Type: ActionPreference
+Parameter Sets: (All)
+Aliases: proga
 
 Required: False
 Position: Named
