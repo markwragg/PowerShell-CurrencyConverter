@@ -2,7 +2,6 @@ Task 'Commit' -Depends 'Init' {
     $lines
 
     Set-Location $ProjectRoot
-    $Module = $env:BHProjectName
 
     git --version
     git config --global user.email "build@azuredevops.com"
@@ -13,6 +12,7 @@ Task 'Commit' -Depends 'Init' {
     git add Documentation/*.md
     git add README.md
     git add CHANGELOG.md
+    git add $env:BHPSModuleManifest
     git commit -m "[skip ci] AzureDevOps Build $($env:BUILD_BUILDID)"
     git push origin $env:BUILD_SOURCEBRANCHNAME
 }
