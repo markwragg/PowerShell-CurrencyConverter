@@ -7,14 +7,14 @@ Returns all exchange rates for a specified currency, or a specified exchange rat
 
 ### ToRate (Default)
 ```
-Get-ExchangeRate [[-Currency] <String>] [-To <String>] [-APIKey <String>] [-ProgressAction <ActionPreference>]
- [<CommonParameters>]
+Get-ExchangeRate [[-Currency] <String>] [-To <String>] [-APIKey <String>] [-Date <DateTime>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ### Rates
 ```
-Get-ExchangeRate [[-Currency] <String>] [-Rates] [-APIKey <String>] [-ProgressAction <ActionPreference>]
- [<CommonParameters>]
+Get-ExchangeRate [[-Currency] <String>] [-Rates] [-APIKey <String>] [-Date <DateTime>]
+ [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -34,6 +34,15 @@ Returns the exchange rates for US Dollar as a PowerShell object.
 
 ### EXAMPLE 2
 ```
+Get-ExchangeRate -From USD -To GBP -Date '2024-01-15' -ApiKey yourapikeystringhere
+```
+
+Description
+-----------
+Returns the exchange rate from US Dollar to British Pound as it was on 15th January 2024.
+
+### EXAMPLE 3
+```
 Get-ExchangeRate -Currency USD -Rates
 ```
 
@@ -41,7 +50,7 @@ Description
 -----------
 Returns all exchange rates for US Dollar.
 
-### EXAMPLE 3
+### EXAMPLE 4
 ```
 Get-ExchangeRate -From USD -To GBP
 ```
@@ -50,7 +59,7 @@ Description
 -----------
 Returns the exchange rate from US Dollar to British Pound, example result: 0.792011
 
-### EXAMPLE 4
+### EXAMPLE 5
 ```
 'USD','GBP' | Get-ExchangeRate
 ```
@@ -59,7 +68,7 @@ Description
 -----------
 Returns the exchange rates for US Dollar and British Pound as PowerShell objects.
 
-### EXAMPLE 5
+### EXAMPLE 6
 ```
 Set-CurrencyDefault -From USD -To GBP
 Get-ExchangeRate
@@ -135,6 +144,24 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Date
+Optional: Returns the historical exchange rates for the specified date, instead of the latest
+rates.
+This requires an -APIKey, as historical data is only available via the registered v6 API.
+Historical results are cached indefinitely once retrieved, as they do not change.
+
+```yaml
+Type: DateTime
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -ProgressAction
 {{Fill ProgressAction Description}}
 
@@ -165,3 +192,6 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## NOTES
 
 ## RELATED LINKS
+
+[https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Get-ExchangeRate](https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Get-ExchangeRate)
+

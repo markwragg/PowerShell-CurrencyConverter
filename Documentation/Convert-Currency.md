@@ -6,7 +6,7 @@ Converts a decimal value between specified currencies
 ## SYNTAX
 
 ```
-Convert-Currency [-Value] <Decimal> [-From <String>] [-To <String>] [-APIKey <String>]
+Convert-Currency [-Value] <Decimal> [-From <String>] [-To <String>] [-APIKey <String>] [-Date <DateTime>]
  [-ProgressAction <ActionPreference>] [<CommonParameters>]
 ```
 
@@ -52,6 +52,15 @@ Convert-Currency -Value 100
 Description
 -----------
 Saves USD/GBP as the default currencies to convert between, then converts 100 USD to GBP without needing to specify -From/-To.
+
+### EXAMPLE 5
+```
+Convert-Currency -Value 100 -From USD -To GBP -Date '2024-01-15' -ApiKey yourapikeystringhere
+```
+
+Description
+-----------
+Converts 100 USD to GBP using the exchange rate as it was on 15th January 2024.
 
 ## PARAMETERS
 
@@ -118,6 +127,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Date
+Optional: Converts using the historical exchange rates for the specified date, instead of the
+latest rates.
+This requires an -APIKey, as historical data is only available via the registered
+v6 API.
+Historical results are cached indefinitely once retrieved, as they do not change.
+
+```yaml
+Type: DateTime
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -ProgressAction
 {{Fill ProgressAction Description}}
 
@@ -146,3 +174,6 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## NOTES
 
 ## RELATED LINKS
+
+[https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Convert-Currency](https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Convert-Currency)
+

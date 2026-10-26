@@ -117,3 +117,6 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## NOTES
 
 ## RELATED LINKS
+
+[https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Get-CryptoCurrency](https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Get-CryptoCurrency)
+

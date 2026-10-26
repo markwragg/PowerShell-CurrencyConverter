@@ -7,7 +7,8 @@ Adds a new member to an object that is a currency conversion of one of its exist
 
 ```
 Add-CurrencyMember -InputObject <PSObject> [-Property] <String> [[-MemberName] <String>] [-From <String>]
- [-To <String>] [-APIKey <String>] [-PassThru] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [-To <String>] [-APIKey <String>] [-Date <DateTime>] [-PassThru] [-ProgressAction <ActionPreference>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -55,6 +56,15 @@ Uses the saved default -From/-To currencies to add a PriceGBP property, and retu
 Description
 -----------
 Adds a PriceGBP property, with the Price property converted from BTC to GBP via Convert-CryptoCurrency, and returns the updated object.
+
+### EXAMPLE 5
+```
+[pscustomobject]@{ Price = 100 } | Add-CurrencyMember -Property Price -From USD -To GBP -Date '2024-01-15' -ApiKey yourapikeystringhere -PassThru
+```
+
+Description
+-----------
+Adds a PriceGBP property, with the Price property converted from USD to GBP using the exchange rate as it was on 15th January 2024, and returns the updated object.
 
 ## PARAMETERS
 
@@ -157,6 +167,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Date
+Optional: Converts using the historical exchange rates for the specified date, instead of the
+latest rates.
+This requires an -APIKey, as historical data is only available via the registered
+v6 API.
+Not supported when converting to/from a crypto currency.
+
+```yaml
+Type: DateTime
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -PassThru
 Returns the updated object to the pipeline.
 By default, this cmdlet does not generate any output.
@@ -201,3 +230,6 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## NOTES
 
 ## RELATED LINKS
+
+[https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Add-CurrencyMember](https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Add-CurrencyMember)
+
