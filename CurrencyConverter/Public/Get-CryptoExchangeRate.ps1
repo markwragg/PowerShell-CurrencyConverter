@@ -60,6 +60,8 @@ function Get-CryptoExchangeRate {
         -----------
         Saves USD/BTC as the default currencies, then returns the exchange rate from US Dollar to Bitcoin without needing to specify -Currency/-To.
 
+    .LINK
+        https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Get-CryptoExchangeRate
     #>
     [CmdletBinding(DefaultParameterSetName = 'ToRate')]
     [OutputType([pscustomobject])]

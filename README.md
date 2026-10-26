@@ -33,16 +33,18 @@ This module provides the following cmdlets:
 
 Cmdlet                         | Description
 ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------
-Add-CurrencyMember             | Adds a new member to an object that is a currency conversion of one of its existing properties.
-Convert-Currency               | Converts a decimal value between two specified currencies using ExchangeRate-API.
+Add-CurrencyMember             | Adds a new member to an object that is a currency conversion of one of its existing properties. Supports historical rates via `-Date`.
+Convert-Currency               | Converts a decimal value between two specified currencies using ExchangeRate-API. Supports historical rates via `-Date`.
 Convert-CryptoCurrency         | Converts a decimal value between two specified crypto/non-crypto currencies using CoinBase API.
+ConvertTo-CurrencyTable        | Converts a decimal value to several currencies at once, returning the results as a single object. Supports historical rates via `-Date`.
 Format-Currency                | Formats a value as a string with the currency symbol for a specified country or crypto currency (where supported).
 Get-Currency                   | Returns the list of supported currency codes along with their currency name and country code.
 Get-CryptoCurrency             | Returns the list of supported crypto currency codes along with their currency name and type (crypto or fiat).
-Get-ExchangeRate               | Returns all exchange rates for a specified currency, or a specified exchange rate between two currencies.
+Get-ExchangeRate               | Returns all exchange rates for a specified currency, or a specified exchange rate between two currencies. Supports historical rates via `-Date`.
 Get-CryptoExchangeRate         | Returns all exchange rates for a specified crypto currency, or a specified exchange rate between two crypto/non-crypto currencies.
 Set-CurrencyDefault   | Saves default values for `-From`, `-To` and `-APIKey` so you don't need to specify them on every call.
 Get-CurrencyDefault   | Returns the default values currently saved by `Set-CurrencyDefault`.
+Watch-ExchangeRate    | Polls an exchange rate on an interval, until it crosses a specified threshold. Supports crypto currencies.
 
 To perform a simple currency conversion, execute:
 
@@ -67,6 +69,18 @@ To use the ExhangeRate-API registered API, provide your key via the `-APIKey` pa
 ```powershell
 Convert-Currency -Value 100 -From USD -To GBP -ApiKey yourapikeystringhere
 ```
+
+If you also have a registered API key, you can convert using the historical exchange rate for a specific date by specifying `-Date`:
+
+```powershell
+Convert-Currency -Value 100 -From USD -To GBP -Date '2024-01-15' -ApiKey yourapikeystringhere
+```
+```plaintext
+79.2460
+```
+
+> [!NOTE]
+> Historical rates are only available via the registered v6 API, so `-Date` requires `-APIKey` to also be specified (or saved via `Set-CurrencyDefault`). Once retrieved, historical rates are cached indefinitely, since they don't change.
 
 > [!TIP]
 > See here for a list of supported currencies: https://www.exchangerate-api.com/docs/supported-currencies. Alternatively you can use the `Get-Currency` cmdlet.
@@ -100,6 +114,19 @@ This means that you can pipe multiple values in to perform a series of conversio
 12215538.00
 15269422.50
 ```
+
+If you want to convert a value to several currencies at once, use `ConvertTo-CurrencyTable`, which returns the results as a single object with one property per currency:
+
+```powershell
+100 | ConvertTo-CurrencyTable -From USD -To GBP,EUR,JPY
+```
+```plaintext
+USD GBP   EUR   JPY
+--- ---   ---   ---
+100 79.20 93.04 15692.06
+```
+
+`ConvertTo-CurrencyTable` also supports `-Date` and `-APIKey`, which it passes through to `Convert-Currency` for each destination currency.
 
 If you would like to return the result as a formatted string including the currency symbol and rounded to a number of decimal places, execute:
 
@@ -297,6 +324,45 @@ Get-ExchangeRate -From GBP -To USD
 1.262609
 ```
 
+If you have a registered API key, you can retrieve historical exchange rates for a specific date by specifying `-Date`:
+
+```powershell
+Get-ExchangeRate -From GBP -To USD -Date '2024-01-15' -ApiKey yourapikeystringhere
+```
+```plaintext
+1.269
+```
+
+> [!NOTE]
+> Historical rates are only available via the registered v6 API, so `-Date` requires `-APIKey` to also be specified (or saved via `Set-CurrencyDefault`). Once retrieved, historical rates are cached indefinitely, since they don't change.
+
+### Watching an exchange rate
+
+If you want to keep an eye on an exchange rate and be notified when it reaches a particular level, use `Watch-ExchangeRate`. It polls the rate on an interval (`-IntervalSeconds`, default 60) and writes a result to the pipeline for each poll:
+
+```powershell
+Watch-ExchangeRate -From USD -To GBP -AboveThreshold 0.80 -IntervalSeconds 300
+```
+```plaintext
+From To  Rate     Timestamp              Triggered
+---- --  ----     ---------              ---------
+USD  GBP 0.792011 15/01/2024 09:00:00     False
+USD  GBP 0.798    15/01/2024 09:05:00     False
+USD  GBP 0.801    15/01/2024 09:10:00     True
+```
+
+Polling stops as soon as the rate crosses `-AboveThreshold` or `-BelowThreshold` (the matching result has `Triggered` set to `$true`). If you don't specify either, or want to cap how long it runs for regardless, use `-MaxIterations`:
+
+```powershell
+Watch-ExchangeRate -From USD -To GBP -MaxIterations 5
+```
+
+`Watch-ExchangeRate` also supports crypto currencies. If `-From` or `-To` is a crypto currency, it polls via `Get-CryptoExchangeRate` instead of `Get-ExchangeRate` (in which case `-APIKey` is not used):
+
+```powershell
+Watch-ExchangeRate -From BTC -To USD -AboveThreshold 100000 -IntervalSeconds 30
+```
+
 ### Setting defaults
 
 If you regularly convert between the same currencies, or always use the same API key, you can save them as defaults so you don't need to specify them every time:
@@ -336,3 +402,14 @@ Widget    100    79.20
 ```
 
 By default the new property is named `<Property><To>`, e.g. `PriceGBP`. You can specify a different name with `-MemberName`. `-From` and `-To` also fall back to any saved defaults, and crypto currency codes are converted via `Convert-CryptoCurrency` automatically. As with `Add-Member`, the updated object is only returned to the pipeline if `-PassThru` is specified.
+
+If you have a registered API key, `Add-CurrencyMember` also supports `-Date` for converting using a historical exchange rate (not supported when `-From`/`-To` is a crypto currency):
+
+```powershell
+[pscustomobject]@{ Product = 'Widget'; Price = 100 } | Add-CurrencyMember -Property Price -From USD -To GBP -Date '2024-01-15' -ApiKey yourapikeystringhere -PassThru
+```
+```plaintext
+Product Price PriceGBP
+------- ----- --------
+Widget    100    79.246
+```

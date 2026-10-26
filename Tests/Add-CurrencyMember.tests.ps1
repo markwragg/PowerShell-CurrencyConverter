@@ -141,4 +141,55 @@ Describe 'Add-CurrencyMember' {
             Should -Invoke Write-Error
         }
     }
+
+    Context 'Historical rates (-Date)' {
+
+        It 'Returns an error if -Date is specified without -APIKey' {
+
+            Mock Write-Error
+            Mock Invoke-RestMethod
+
+            $Object = [pscustomobject]@{ Price = 100 }
+            $Object | Add-CurrencyMember -Property Price -From USD -To GBP -Date '2024-01-15'
+
+            Should -Not -Invoke Invoke-RestMethod
+            Should -Invoke Write-Error
+        }
+
+        It 'Returns an error if -Date is specified with a crypto currency' {
+
+            Mock Write-Error
+            Mock Invoke-RestMethod
+
+            $Object = [pscustomobject]@{ Price = 1 }
+            $Object | Add-CurrencyMember -Property Price -From BTC -To GBP -Date '2024-01-15' -ApiKey 12345abcdef
+
+            Should -Not -Invoke Invoke-RestMethod
+            Should -Invoke Write-Error
+        }
+
+        It 'Retrieves historical rates from the v6 history API when -Date and -APIKey are specified' {
+
+            Mock Invoke-RestMethod {
+                [pscustomobject]@{
+                    result           = 'success'
+                    year             = 2024
+                    month            = 1
+                    day              = 15
+                    base_code        = 'USD'
+                    conversion_rates = @{ GBP = 0.79 }
+                }
+            }
+            Mock Test-Path { $false }
+            Mock Out-File
+
+            $Object = [pscustomobject]@{ Price = 100 }
+            $Result = $Object | Add-CurrencyMember -Property Price -From USD -To GBP -Date '2024-01-15' -ApiKey 12345abcdef -PassThru
+
+            $Result.PriceGBP | Should -Be 79.00
+
+            Should -Invoke Invoke-RestMethod -ParameterFilter { $Uri -like '*history/USD/2024/1/15*' }
+            Should -Invoke Out-File
+        }
+    }
 }

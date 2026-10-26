@@ -41,6 +41,9 @@ function Set-CurrencyDefault {
         Description
         -----------
         Removes all saved default preferences.
+
+    .LINK
+        https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Set-CurrencyDefault
     #>
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([pscustomobject])]

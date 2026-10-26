@@ -15,6 +15,9 @@ function Get-CurrencyDefault {
         Description
         -----------
         Returns the currently saved default preferences.
+
+    .LINK
+        https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Get-CurrencyDefault
     #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]

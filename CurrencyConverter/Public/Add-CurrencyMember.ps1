@@ -30,6 +30,11 @@ function Add-CurrencyMember {
         Defaults to the value saved with Set-CurrencyDefault -APIKey, if any. Not used when converting
         to/from a crypto currency.
 
+    .PARAMETER Date
+        Optional: Converts using the historical exchange rates for the specified date, instead of the
+        latest rates. This requires an -APIKey, as historical data is only available via the registered
+        v6 API. Not supported when converting to/from a crypto currency.
+
     .PARAMETER PassThru
         Returns the updated object to the pipeline. By default, this cmdlet does not generate any output.
 
@@ -67,6 +72,16 @@ function Add-CurrencyMember {
         Description
         -----------
         Adds a PriceGBP property, with the Price property converted from BTC to GBP via Convert-CryptoCurrency, and returns the updated object.
+
+    .EXAMPLE
+        [pscustomobject]@{ Price = 100 } | Add-CurrencyMember -Property Price -From USD -To GBP -Date '2024-01-15' -ApiKey yourapikeystringhere -PassThru
+
+        Description
+        -----------
+        Adds a PriceGBP property, with the Price property converted from USD to GBP using the exchange rate as it was on 15th January 2024, and returns the updated object.
+
+    .LINK
+        https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Add-CurrencyMember
     #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
@@ -95,6 +110,9 @@ function Add-CurrencyMember {
         [string]
         $APIKey = (Get-CurrencyDefaultValue -Name 'APIKey'),
 
+        [datetime]
+        $Date,
+
         [switch]
         $PassThru
     )
@@ -111,12 +129,29 @@ function Add-CurrencyMember {
         }
 
         $CryptoCurrency = 'BTC', 'ETH', 'USDT', 'ADA', 'XRP', 'SOL', 'DOT', 'DOGE', 'DAI', 'LTC', 'ALGO', 'BCH', 'OMI', 'ICP', 'ETC', 'XMR', 'XTZ', 'MIOTA', 'EOS', 'BSV', 'MKR', 'ZEC', 'DASH', 'XNO', 'REP', 'STEEM'
+        $IsCrypto = $From -in $CryptoCurrency -or $To -in $CryptoCurrency
 
-        if ($From -in $CryptoCurrency -or $To -in $CryptoCurrency) {
+        if ($Date -and $IsCrypto) {
+            Write-Error "A -Date cannot be used when converting to/from a crypto currency."
+            return
+        }
+
+        if ($Date -and -not $APIKey) {
+            Write-Error "A -Date requires an -APIKey, as historical rates are only available via the registered v6 API."
+            return
+        }
+
+        if ($IsCrypto) {
             $ConvertedValue = $InputObject.$Property | Convert-CryptoCurrency -From $From -To $To
         }
         else {
-            $ConvertedValue = $InputObject.$Property | Convert-Currency -From $From -To $To -APIKey $APIKey
+            $ConvertParams = @{ From = $From; To = $To; APIKey = $APIKey }
+
+            if ($Date) {
+                $ConvertParams.Date = $Date
+            }
+
+            $ConvertedValue = $InputObject.$Property | Convert-Currency @ConvertParams
         }
 
         if ($null -eq $ConvertedValue) {

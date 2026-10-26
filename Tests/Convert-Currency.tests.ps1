@@ -254,4 +254,66 @@ Describe 'Convert-Currency' {
             Should -Invoke Write-Error
         }
     }
+
+    Context 'Historical rates (-Date)' {
+
+        It 'Returns an error if -Date is specified without -APIKey' {
+
+            Mock Write-Error
+
+            $result = 100 | Convert-Currency -From GBP -To USD -Date '2024-01-15'
+            $result | Should -BeNullOrEmpty
+
+            Should -Not -Invoke Invoke-RestMethod
+            Should -Invoke Write-Error
+        }
+
+        It 'Retrieves historical rates from the v6 history API when -Date and -APIKey are specified' {
+
+            Mock Test-Path { $false }
+            Mock Invoke-RestMethod {
+                [pscustomobject]@{
+                    result           = 'success'
+                    year             = 2024
+                    month            = 1
+                    day              = 15
+                    base_code        = 'GBP'
+                    conversion_rates = @{ GBP = 1; USD = 1.266552 }
+                }
+            }
+
+            $result = 100 | Convert-Currency -From GBP -To USD -Date '2024-01-15' -ApiKey 12345abcdef
+            $result | Should -Be 126.6552
+
+            Should -Invoke Invoke-RestMethod -Exactly 1 -ParameterFilter { $Uri -like '*history/GBP/2024/1/15*' }
+            Should -Invoke Out-File -Exactly 1
+        }
+
+        It 'Uses cached historical rates without checking whether they have expired' {
+
+            Mock Test-Path { $true }
+            Mock Get-Content {
+                @'
+{
+    "result": "success",
+    "year": 2024,
+    "month": 1,
+    "day": 15,
+    "base_code": "GBP",
+    "conversion_rates": {
+        "GBP": 1,
+        "USD": 1.266552
+    }
+}
+'@
+            }
+
+            $result = 100 | Convert-Currency -From GBP -To USD -Date '2024-01-15' -ApiKey 12345abcdef
+            $result | Should -Be 126.6552
+
+            Should -Invoke Get-Content -Exactly 1
+            Should -Not -Invoke Invoke-RestMethod
+            Should -Not -Invoke Out-File
+        }
+    }
 }

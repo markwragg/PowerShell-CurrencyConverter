@@ -1,5 +1,11 @@
 # Change Log
 
+## !Deploy 1.1.0
+
+* Added `ConvertTo-CurrencyTable` cmdlet, to convert a value to several currencies at once and return the results as a single object.
+* Added historical rate support via the `-Date` parameter (requires `-APIKey`) to `Get-ExchangeRate`, `Convert-Currency`, `ConvertTo-CurrencyTable` and `Add-CurrencyMember`.
+* Added `Watch-ExchangeRate` cmdlet, to poll an exchange rate on an interval until it crosses a specified threshold.
+
 ## [1.0.4] - 2026-10-23
 
 * Added `Add-CurrencyMember` cmdlet, to add a new property to an object that is a currency conversion of one of its existing properties.

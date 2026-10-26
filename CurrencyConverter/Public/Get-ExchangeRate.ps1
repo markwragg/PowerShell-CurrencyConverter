@@ -22,6 +22,11 @@ function Get-ExchangeRate {
         Optional: To use the v6 API, provide your API key, as provided by https://www.exchangerate-api.com/
         Defaults to the value saved with Set-CurrencyDefault -APIKey, if any.
 
+    .PARAMETER Date
+        Optional: Returns the historical exchange rates for the specified date, instead of the latest
+        rates. This requires an -APIKey, as historical data is only available via the registered v6 API.
+        Historical results are cached indefinitely once retrieved, as they do not change.
+
     .INPUTS
         Currency codes can be provided via the pipeline.
 
@@ -31,6 +36,13 @@ function Get-ExchangeRate {
         Description
         -----------
         Returns the exchange rates for US Dollar as a PowerShell object.
+
+    .EXAMPLE
+        Get-ExchangeRate -From USD -To GBP -Date '2024-01-15' -ApiKey yourapikeystringhere
+
+        Description
+        -----------
+        Returns the exchange rate from US Dollar to British Pound as it was on 15th January 2024.
 
     .EXAMPLE
         Get-ExchangeRate -Currency USD -Rates
@@ -61,6 +73,8 @@ function Get-ExchangeRate {
         -----------
         Saves USD/GBP as the default currencies, then returns the exchange rate from US Dollar to British Pound without needing to specify -Currency/-To.
 
+    .LINK
+        https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Get-ExchangeRate
     #>
     [CmdletBinding(DefaultParameterSetName = 'ToRate')]
     [OutputType([pscustomobject])]
@@ -83,7 +97,10 @@ function Get-ExchangeRate {
         $Rates,
 
         [string]
-        $APIKey = (Get-CurrencyDefaultValue -Name 'APIKey')
+        $APIKey = (Get-CurrencyDefaultValue -Name 'APIKey'),
+
+        [datetime]
+        $Date
     )
     process {
         if (-not $Currency) {
@@ -91,7 +108,18 @@ function Get-ExchangeRate {
             return
         }
 
-        if ($APIKey) {
+        if ($Date -and -not $APIKey) {
+            Write-Error "A -Date requires an -APIKey, as historical rates are only available via the registered v6 API."
+            return
+        }
+
+        if ($Date) {
+            $DateStamp = $Date.ToString('yyyy-MM-dd')
+            $Cached = Join-Path $PSScriptRoot "${Currency}_${DateStamp}v6.json"
+            $APIUrl = "https://v6.exchangerate-api.com/v6/${APIKey}/history/${Currency}/$($Date.Year)/$($Date.Month)/$($Date.Day)"
+            $RateStr = 'conversion_rates'
+        }
+        elseif ($APIKey) {
             $Cached = Join-Path $PSScriptRoot "${Currency}v6.json"
             $APIUrl = "https://v6.exchangerate-api.com/v6/${APIKey}/latest/${Currency}"
             $RateStr = 'conversion_rates'
@@ -108,7 +136,15 @@ function Get-ExchangeRate {
             $ExchangeRates = Get-Content $Cached | ConvertFrom-Json
         }
 
-        if (-not $isCached -or ((Get-Date) -gt ($ExchangeRates.time_next_update_unix | ConvertFrom-UnixTime))) {
+        # Historical rates for a given date never change, so once cached they don't need to be refreshed.
+        $NeedsRefresh = if ($Date) {
+            -not $isCached
+        }
+        else {
+            -not $isCached -or ((Get-Date) -gt ($ExchangeRates.time_next_update_unix | ConvertFrom-UnixTime))
+        }
+
+        if ($NeedsRefresh) {
             try {
                 $ExchangeRates = Invoke-RestMethod $APIUrl -ErrorAction Stop
                 $ExchangeRates | ConvertTo-Json | Out-File $Cached -Force

@@ -52,6 +52,9 @@ function Get-Currency {
         Description
         -----------
         Returns all currencies that include the word 'Dollar'
+
+    .LINK
+        https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Get-Currency
     #>
     [OutputType([pscustomobject])]
     [CmdletBinding(DefaultParameterSetName='Code')]

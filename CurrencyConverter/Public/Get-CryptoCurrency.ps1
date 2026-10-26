@@ -42,6 +42,9 @@ function Get-CryptoCurrency {
         Description
         -----------
         Returns all currencies that include the word 'Bitcoin'
+
+    .LINK
+        https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Get-CryptoCurrency
     #>
     [OutputType([pscustomobject])]
     [CmdletBinding(DefaultParameterSetName='Code')]

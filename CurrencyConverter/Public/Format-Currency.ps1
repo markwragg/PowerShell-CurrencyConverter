@@ -65,6 +65,9 @@
         Description
         -----------
         Formats the value as USD: 100.00$.
+
+    .LINK
+        https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Format-Currency
     #>
     [CmdletBinding()]
     [OutputType([string])]

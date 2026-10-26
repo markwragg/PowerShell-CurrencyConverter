@@ -50,6 +50,9 @@
         Description
         -----------
         Saves BTC/ETH as the default currencies to convert between, then converts 1 BTC to ETH without needing to specify -From/-To.
+
+    .LINK
+        https://github.com/markwragg/PowerShell-CurrencyConverter/wiki/Convert-CryptoCurrency
     #>
     [cmdletbinding()]
     [OutputType([decimal])]

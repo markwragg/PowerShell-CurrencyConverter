@@ -69,7 +69,7 @@ PowerShellVersion = '3.0'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('Add-CurrencyMember','Convert-CryptoCurrency','Convert-Currency','Format-Currency','Get-CryptoCurrency','Get-CryptoExchangeRate','Get-Currency','Get-CurrencyDefault','Get-ExchangeRate','Set-CurrencyDefault')
+FunctionsToExport = @('Add-CurrencyMember','Convert-CryptoCurrency','Convert-Currency','ConvertTo-CurrencyTable','Format-Currency','Get-CryptoCurrency','Get-CryptoExchangeRate','Get-Currency','Get-CurrencyDefault','Get-ExchangeRate','Set-CurrencyDefault','Watch-ExchangeRate')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
