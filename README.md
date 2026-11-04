@@ -1,6 +1,6 @@
 # PowerShell Currency Converter
 
-[![Build Status](https://dev.azure.com/markwragg/GitHub/_apis/build/status/markwragg.PowerShell-CurrencyConverter?branchName=main)](https://dev.azure.com/markwragg/GitHub/_build/latest?definitionId=12&branchName=main)
+[![Build Status](https://github.com/markwragg/PowerShell-CurrencyConverter/actions/workflows/build.yml/badge.svg)](https://github.com/markwragg/PowerShell-CurrencyConverter/actions/workflows/build.yml)
 ![coverage](https://img.shields.io/badge/coverage-93%25-brightgreen.svg)
 [![PowerShell Gallery Version](https://img.shields.io/powershellgallery/v/currencyconverter?label=PS%20Gallery)](https://www.powershellgallery.com/packages/currencyconverter)
 [![PowerShell Gallery Downloads](https://img.shields.io/powershellgallery/dt/currencyconverter?color=D3D3D3)](https://www.powershellgallery.com/packages/currencyconverter)

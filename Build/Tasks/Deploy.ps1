@@ -85,7 +85,9 @@ Task 'Deploy' -Depends 'Init' {
             # Signal to the pipeline that a real deploy happened, so the GitHubRelease step (which runs as
             # a later, separate step in the same job) knows to run - it can't infer this safely on its own,
             # since $Version above is (re)computed on every build regardless of whether this branch runs.
-            Write-Host "##vso[task.setvariable variable=DidDeploy;isOutput=true]true"
+            if ($env:GITHUB_OUTPUT) {
+                "DidDeploy=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+            }
         }
         else {
             Write-Host "CHANGELOG.md requested a deploy via '## !Deploy', but deploy.psdeploy.ps1's own gate (branch/build-system/API key) skipped it. Leaving CHANGELOG.md unchanged."
